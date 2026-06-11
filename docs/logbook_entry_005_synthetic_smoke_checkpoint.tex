@@ -1,0 +1,85 @@
+\section{Logbook Entry 005: Synthetic Allen-Style Neural HRSM Smoke-Test Checkpoint}
+\label{sec:logbook-entry-005-synthetic-smoke}
+
+\subsection{Purpose}
+
+This entry records the first complete operational checkpoint for the Neural HRSM state-space repository. The aim of this stage was not to establish a biological result, but to determine whether the computational scaffold can execute end-to-end on an Allen-style synthetic neural population table. The tested object is measurable neural population homeostasis and non-Markovian state dependence, not consciousness itself.
+
+\subsection{Repository State}
+
+The repository was initialized under the working title \texttt{neural\_hrsm\_state\_space}. The first committed checkpoint is identified by commit \texttt{13fcf89}, followed by checkpoint-audit and logbook commits. The current checkpoint tag is:
+
+\begin{verbatim}
+neural-hrsm-synthetic-smoke-2026-06-11-v1
+\end{verbatim}
+
+The repository contains configuration files, Allen Neuropixels pipeline scripts, reusable source modules for HRSM proxy construction, orthogonalization, memory-kernel testing, plotting utilities, synthetic input generation, diagnostic figures, and tabulated outputs.
+
+\subsection{Pipeline Executed}
+
+The synthetic smoke test was executed using:
+
+\begin{verbatim}
+make smoke
+\end{verbatim}
+
+The pipeline completed all five Allen-style stages:
+
+\begin{enumerate}
+    \item preparation of a synthetic Allen Neuropixels-style manifest and binned spike table,
+    \item construction of a population state matrix,
+    \item computation of neural HRSM proxies,
+    \item fitting of a lagged memory-kernel model against a present-state baseline,
+    \item generation of diagnostic figures.
+\end{enumerate}
+
+The resulting population state matrix contained 19,200 rows.
+
+\subsection{Memory-Kernel Result}
+
+The memory-kernel audit produced two synthetic session-level rows. In both sessions, the lagged memory model improved predictive performance over the present-state baseline:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Session & Baseline $R^2$ & Memory $R^2$ & Gain $\Delta R^2$ & Trials \\
+\hline
+session\_1 & 0.4730335467 & 0.8411300582 & 0.3680965115 & 79 \\
+session\_2 & 0.5755146410 & 0.8735877314 & 0.2980730904 & 79 \\
+\hline
+\end{tabular}
+\end{center}
+
+This confirms that the synthetic neural state construction contains recoverable path dependence. In the current scaffold, the memory coordinate is not decorative. It improves prediction beyond the present-state baseline.
+
+\subsection{Orthogonality Result}
+
+The orthogonality audit produced:
+
+\begin{verbatim}
+max_abs_offdiag_corr_orthogonalized = 1.0960279224333183e-15
+\end{verbatim}
+
+This indicates that the orthogonalized HRSM axes are decorrelated to numerical precision. This result is important because neural data can easily contaminate H, R, S, and M when all proxies are derived from related activity and correlation structures. The first scaffold therefore passes the initial axis-separation audit.
+
+\subsection{Domain Structure}
+
+The domain summary did not collapse into one artificial HRSM state. Instead, it produced structured region and stimulus-family differences. Visual cortical regions, especially VISp and VISl, frequently occupied high-stability and low-memory domains such as \texttt{mid\_mid\_high\_low} and \texttt{low\_high\_high\_low}. LGd frequently occupied lower-stability and higher-memory domains under visual stimulus families, including \texttt{mid\_mid\_low\_high}. CA1 showed mixed mid-state and recoverability-dominant patterns.
+
+These domain assignments are not yet biological claims. They demonstrate that the computational scaffold can preserve structured differences across neural regions and stimulus families under controlled synthetic conditions.
+
+\subsection{Interpretation}
+
+The first Neural HRSM smoke test supports three operational conclusions. First, the repository can execute the full synthetic Allen-style workflow. Second, the lagged memory model improves prediction over a present-state baseline in both synthetic sessions. Third, the HRSM axes can be orthogonalized to numerical precision. These results validate the computational machinery required before real Allen Neuropixels data are introduced.
+
+\subsection{Known Fix}
+
+A rerun initially failed inside \texttt{src/neural\_hrsm/orthogonalize.py} because a recent NumPy/Pandas stack returned a read-only correlation array. The issue was fixed by converting the correlation matrix to a copied NumPy array before filling the diagonal. This was a rerun-robustness bug, not a conceptual or mathematical failure.
+
+\subsection{Limitations}
+
+The current branch remains synthetic. It cannot be used as evidence for real visual cortex, hippocampal, or thalamic neural dynamics. It only validates the scaffold. The next stage must replace the synthetic binned spike table with real Allen Neuropixels session data, while preserving the same manifest, population-state, HRSM proxy, memory-kernel, orthogonality, and diagnostic-output structure.
+
+\subsection{Next Step}
+
+The next technical step is to add a real Allen Neuropixels acquisition script or manifest builder. The first real-data goal should be modest: one or two sessions, a small set of regions, and the same three stimulus families used in the synthetic branch. The first real-data pass should test whether memory gain, axis separability, and HRSM domain structure survive outside the synthetic scaffold.
