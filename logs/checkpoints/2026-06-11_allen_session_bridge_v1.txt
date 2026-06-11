@@ -1,0 +1,49 @@
+Neural HRSM real Allen Neuropixels session inspection bridge
+Date: 2026-06-11
+Repository: neural_hrsm_state_space
+Commit: 8163ec2
+Tag: neural-hrsm-allen-session-bridge-2026-06-11-v1
+
+Purpose:
+This checkpoint records the first successful bridge from the synthetic Neural HRSM scaffold to real Allen Visual Coding Neuropixels metadata. No real neural HRSM metrics were computed at this stage. The goal was to verify AllenSDK access, inspect available sessions, and identify candidate sessions containing VISp, VISl, LGd, and CA1.
+
+Environment:
+A dedicated Python 3.10 virtual environment was created at .venv_allen because AllenSDK 2.16.2 requires older NumPy compatibility and does not install cleanly under the project Python 3.13 environment.
+
+Verified package versions:
+allensdk = 2.16.2
+numpy = 1.23.5
+pandas = 1.5.3
+
+Script:
+scripts/allen/05_inspect_real_allen_sessions.py
+
+Command:
+PYTHONPATH=src python scripts/allen/05_inspect_real_allen_sessions.py \
+  --cache-dir data/raw/allen_neuropixels_cache \
+  --out metadata/allen_real_session_manifest.csv \
+  --max-sessions 20
+
+Output:
+metadata/allen_real_session_manifest.csv
+
+Result:
+The script successfully wrote a 20-row real Allen session manifest. All inspected rows returned status=ok. The manifest records ecephys_session_id, total unit count, region coverage, per-region unit counts for VISp, VISl, LGd, and CA1, and a target-region count.
+
+Best first real-data candidate:
+ecephys_session_id = 715093703
+n_units = 884
+VISp = 60 units
+VISl = 42 units
+LGd = 82 units
+CA1 = 145 units
+target_region_count = 4
+
+Other strong candidate sessions:
+719161530, 750749662, 751348571, 754312389, 756029989
+
+Interpretation:
+The real Allen bridge is now operational. The repository can inspect real Allen Neuropixels metadata and identify sessions containing the core neural HRSM target regions. This does not yet establish a biological HRSM result. It establishes that the synthetic scaffold can now be connected to real neural data in a controlled way.
+
+Next step:
+Add a real Allen session extraction script for one selected session, preferably 715093703. The next script should load the session data, select units from VISp, VISl, LGd, and CA1, extract spike times and stimulus presentations for a small set of visual or spontaneous blocks, and export a real binned spike table compatible with the existing population-state HRSM pipeline.
