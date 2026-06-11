@@ -1,0 +1,40 @@
+Neural HRSM synthetic smoke test checkpoint
+Date: 2026-06-11
+Repository: neural_hrsm_state_space
+Commit: 13fcf89
+Tag: neural-hrsm-synthetic-smoke-2026-06-11-v1
+
+Pipeline:
+make smoke
+
+Observed output:
+- Manifest and synthetic input table written to data/interim/allen_neuropixels_v1
+- Population state matrix written to data/processed/allen_neuropixels_v1/population_state_matrix.csv
+- Rows in population state matrix: 19200
+- HRSM metrics and domain summary written
+- Memory-kernel gain summary written with 2 session rows
+- Diagnostic figures written to results/figures
+
+Memory kernel results:
+session_1:
+  baseline_r2 = 0.47303354671384357
+  memory_r2 = 0.8411300581877669
+  memory_gain_r2 = 0.3680965114739233
+  n_rows = 9472
+  n_trials = 79
+
+session_2:
+  baseline_r2 = 0.5755146410160954
+  memory_r2 = 0.8735877314082924
+  memory_gain_r2 = 0.298073090392197
+  n_rows = 9472
+  n_trials = 79
+
+Orthogonality audit:
+max_abs_offdiag_corr_orthogonalized = 1.0960279224333183e-15
+
+Interpretation:
+The synthetic Allen-style Neural HRSM pipeline executes end-to-end. The memory-augmented model improves prediction over the baseline present-state model in both sessions. Orthogonalization reduces cross-axis correlation to numerical precision. This validates the first computational scaffold, but does not yet establish a biological neural result because the current input is synthetic.
+
+Known fix applied:
+src/neural_hrsm/orthogonalize.py was patched to avoid modifying a read-only NumPy/Pandas correlation array in place by converting the correlation matrix to a copied NumPy array before filling the diagonal.
