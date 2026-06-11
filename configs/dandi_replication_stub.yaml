@@ -1,0 +1,13 @@
+project:
+  name: Neural_hrsm_state_space
+  branch: dandi_replication_stub
+runtime:
+  synthetic_smoke_test: true
+paths:
+  raw_dir: data/raw/dandi
+  interim_dir: data/interim/dandi_replication
+  processed_dir: data/processed/dandi_replication
+  results_dir: results
+notes:
+  purpose: Later replication branch for NWB electrophysiology or optophysiology datasets.
+  required_decision: Select a DANDI asset with repeated perturbation, stimulus, task, sleep, or recovery structure.

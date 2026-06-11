@@ -1,0 +1,400 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setstretch{1.08}
+\setlist[itemize]{leftmargin=1.5em}
+\setlist[enumerate]{leftmargin=1.5em}
+
+\title{Logbook for a Neural Homeostatic Vector Space: Reserve, Recoverability, Stability, and Memory in Neural Population Dynamics}
+\author{Stephen Atalebe}
+\date{Initial project logbook, June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This logbook defines the first working plan for a Neural Homeostatic Vector Space, hereafter Neurons HRSM. The project does not claim to solve consciousness. Instead, it tests whether measurable neural population dynamics occupy a structured homeostatic state space defined by reserve, recoverability, stability, and memory. Consciousness is treated only as a long-range motivation, because neural systems that support conscious processing are experimentally accessible through spiking activity, calcium imaging, electrophysiology, functional connectivity, sleep, anesthesia, and recovery from perturbation. The immediate empirical target is therefore neural state organization, not subjective experience. The first proposed branch is a mouse neural population branch using Allen Brain Observatory Visual Coding Neuropixels data, with later extensions to DANDI neurophysiology datasets, Human Connectome Project functional connectivity, and OpenNeuro anesthesia or sleep-transition datasets.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Purpose of the logbook}
+
+This logbook records the design logic, proxy definitions, dataset candidates, failure criteria, and first computational plan for applying the Homeostatic Reserve--Recoverability--Stability--Memory framework to neural systems. The document is intended to function as a live research record. Each milestone should be extended with numbered entries describing what is being tested, why the test is necessary, what data and scripts are used, what results are obtained, what failed, and what should be done next.
+
+The central discipline of this project is restraint. Neural data may be relevant to consciousness, but the first simulations should not make consciousness the dependent variable. The measurable object is neural population dynamics. The philosophical motivation is that conscious systems are carried by neural substrates, but the empirical question is whether those substrates show structured homeostatic dynamics with explicit non-Markovian memory.
+
+\section{Scientific motivation}
+
+Neural systems are naturally path-dependent. A neural response at time $t$ is not determined only by the current stimulus. It is shaped by prior firing history, synaptic plasticity, adaptation, refractory effects, sleep state, neuromodulation, behavioral state, previous stimuli, and circuit context. This makes neural population dynamics a strong candidate domain for HRSM analysis.
+
+The project begins from a modest claim. Neural systems may occupy measurable state spaces in which capacity, return, coherence, and retained history are separable dimensions. If so, the HRSM framework can be tested without invoking subjective consciousness directly. The stronger consciousness-adjacent question is deferred until neural homeostasis, transition dynamics, and memory kernels are empirically stable.
+
+The working principle is therefore:
+
+\begin{quote}
+Measure neural homeostasis first. Measure state transitions second. Measure memory kernels third. Only after this, evaluate whether the resulting state-space geometry has relevance to conscious-state transitions.
+\end{quote}
+
+\section{Core research question}
+
+The first research question is:
+
+\begin{quote}
+Do neural population recordings occupy a structured homeostatic vector space in which reserve, recoverability, stability, and memory can be operationalized as distinct, testable axes?
+\end{quote}
+
+The second research question is:
+
+\begin{quote}
+Does a non-Markovian memory term improve prediction of neural state evolution beyond models using only the present neural state, present stimulus, and present behavioral condition?
+\end{quote}
+
+The third research question, reserved for later branches, is:
+
+\begin{quote}
+Do transitions involving sleep, anesthesia, loss of responsiveness, or recovery from sedation show systematic displacement in HRSM state space?
+\end{quote}
+
+\section{Conceptual boundary: consciousness is not the first measured variable}
+
+The project explicitly avoids treating consciousness as a directly measured scalar in the first branch. The reason is methodological, not philosophical. Consciousness is difficult to measure directly, and public datasets usually contain neural activity, behavior, stimulus conditions, sleep labels, or anesthesia levels rather than subjective experience itself.
+
+The first branch therefore uses neural dynamics as the measured substrate. In this branch, consciousness is not modeled as an HRSM axis. Instead, HRSM is used to quantify the organization of neural systems that may support perception, attention, integration, memory, and recoverable responsiveness.
+
+This boundary prevents the project from drifting into metaphysical overclaiming. A neural state-space result may later support a consciousness-adjacent interpretation, but it must first survive ordinary empirical tests.
+
+\section{State-space definition}
+
+Let $X_t$ denote a neural population state at time $t$. Depending on the dataset, $X_t$ may be a vector of spike counts, firing rates, calcium-event amplitudes, regional BOLD activity, parcel-level time series, spectral power, or low-dimensional population embeddings. Let $I_t$ denote current input or stimulus, and let $B_t$ denote behavioral or physiological state. The HRSM hypothesis is that neural dynamics are better described when the current state is embedded in a structured vector:
+
+\begin{equation}
+\hat{\phi}_{\mathrm{neural}}(t) = \bigl(H_{\mathrm{neural}}(t), R_{\mathrm{neural}}(t), S_{\mathrm{neural}}(t), M_{\mathrm{neural}}(t)\bigr).
+\end{equation}
+
+Here $H$ denotes usable response reserve, $R$ denotes recoverability after perturbation or transition, $S$ denotes coherent state stability, and $M$ denotes retained historical structure.
+
+A provisional non-Markovian neural model is:
+
+\begin{equation}
+X_{t+\Delta t} = F(X_t, I_t, B_t) + \int_0^\tau K(\Delta)X_{t-\Delta}\,d\Delta + \epsilon_t.
+\end{equation}
+
+The Markovian baseline excludes the kernel term:
+
+\begin{equation}
+X_{t+\Delta t} = F(X_t, I_t, B_t) + \epsilon_t.
+\end{equation}
+
+The memory axis $M$ is empirically justified only if the history term improves prediction, classification, reconstruction, or transition forecasting after controlling for the current state, current stimulus, and current behavioral state.
+
+\section{Initial HRSM proxy definitions}
+
+\subsection{Reserve, $H_{\mathrm{neural}}$}
+
+Reserve is not raw neural activity. High firing alone may indicate useful responsiveness, noise, seizure-like instability, saturation, or pathological excitation. Neural reserve should therefore be defined as usable response capacity. Candidate definitions include:
+
+\begin{equation}
+H_{\mathrm{neural}} = z\bigl(\mathrm{dynamic\ range}\bigr) + z\bigl(\mathrm{stimulus\ responsiveness}\bigr) - z\bigl(\mathrm{saturation\ penalty}\bigr) - z\bigl(\mathrm{noise\ penalty}\bigr).
+\end{equation}
+
+For spiking or calcium data, the dynamic range can be estimated from trial-level response distributions. Stimulus responsiveness can be measured by cross-validated stimulus decoding, evoked response amplitude relative to baseline variability, or explained variance under a stimulus model. Saturation can be penalized when many units show ceiling-like firing or low discriminability despite high amplitude. Noise can be penalized using trial-to-trial variability or Fano-like variability.
+
+The expected interpretation is that a high-$H$ neural state can respond to input while preserving discriminability and avoiding saturation.
+
+\subsection{Recoverability, $R_{\mathrm{neural}}$}
+
+Recoverability measures return after a defined transition. In visual-coding data, transitions may include stimulus onset, stimulus offset, stimulus block changes, natural movie segment changes, or spontaneous-to-evoked transitions. In anesthesia or sleep datasets, transitions may include wakefulness to sedation, sedation to recovery, wake to sleep, or sleep-stage changes.
+
+A simple first definition is:
+
+\begin{equation}
+R_{\mathrm{neural}} = -z\bigl(d(X_{t+k}, X_{\mathrm{ref}})\bigr) - z\bigl(T_{\mathrm{return}}\bigr),
+\end{equation}
+
+where $X_{\mathrm{ref}}$ is a reference neural state and $T_{\mathrm{return}}$ is the time required to return within a defined tolerance of that reference state. Higher $R$ indicates cleaner and faster return.
+
+In Allen visual data, $X_{\mathrm{ref}}$ may be the pre-stimulus baseline, spontaneous activity baseline, or session-specific reference manifold. In anesthesia data, $X_{\mathrm{ref}}$ may be awake baseline or recovery-state baseline.
+
+\subsection{Stability, $S_{\mathrm{neural}}$}
+
+Stability measures coherent organization rather than mere inactivity. Candidate definitions include trial-to-trial population-geometry preservation, functional connectivity stability, region-level coherence, embedding stability, or attractor persistence.
+
+A first operational form is:
+
+\begin{equation}
+S_{\mathrm{neural}} = z\bigl(\mathrm{geometry\ preservation}\bigr) + z\bigl(\mathrm{connectivity\ consistency}\bigr) - z\bigl(\mathrm{state\ dispersion}\bigr).
+\end{equation}
+
+For repeated stimuli, geometry preservation can be estimated by comparing low-dimensional population embeddings across repeated blocks. Connectivity consistency can be measured by correlation or covariance structure across trials. State dispersion can be measured as within-condition population variance.
+
+The expected interpretation is that a high-$S$ state preserves structured organization without becoming rigid or collapsed.
+
+\subsection{Memory, $M_{\mathrm{neural}}$}
+
+Memory is the most important and most dangerous axis. It should not be defined as psychological memory in the first branch. It should be defined as retained historical structure. The key question is whether past neural states explain current or future states beyond present-state and current-stimulus controls.
+
+A first definition is:
+
+\begin{equation}
+M_{\mathrm{neural}} = z\bigl(\Delta \mathcal{L}_{\mathrm{history}}\bigr) + z\bigl(\mathrm{lagged\ state\ identifiability}\bigr) + z\bigl(\mathrm{prior\ stimulus\ dependence}\bigr),
+\end{equation}
+
+where $\Delta \mathcal{L}_{\mathrm{history}}$ is the predictive improvement from adding lagged states or memory kernels to a Markovian baseline.
+
+The first statistical test should compare:
+
+\begin{equation}
+\mathcal{M}_0: X_{t+\Delta t} \sim X_t + I_t + B_t,
+\end{equation}
+
+against:
+
+\begin{equation}
+\mathcal{M}_1: X_{t+\Delta t} \sim X_t + I_t + B_t + X_{t-1:t-L}.
+\end{equation}
+
+The axis $M$ is valid only if $\mathcal{M}_1$ improves prediction under held-out validation and not merely in-sample fit.
+
+\section{Dataset candidates}
+
+\subsection{Primary branch: Allen Brain Observatory Visual Coding Neuropixels}
+
+The first recommended dataset is the Allen Brain Observatory Visual Coding Neuropixels dataset. This branch is preferred because it contains neural spiking data, repeated visual stimuli, multiple brain regions, and a structure suitable for testing response reserve, recovery from stimulus transitions, geometry stability, and history dependence.
+
+The Allen Visual Coding program reports Neuropixels recordings of spiking activity across the mouse visual system, including cortex, hippocampus, and thalamus. The Allen documentation describes the project as measuring the impact of visual stimuli on neurons throughout the mouse visual system. The broader Allen Brain Map description reports nearly 100,000 recorded neurons from wild-type mice and transgenic lines across cortex, hippocampus, and thalamus.
+
+This dataset is the best first branch because it provides temporally resolved neural activity rather than slow indirect imaging alone. It also enables region-resolved HRSM comparison.
+
+\subsection{Secondary branch: DANDI Archive neurophysiology datasets}
+
+DANDI is a public neurophysiology archive for electrophysiology, optophysiology, behavioral time series, and related neurophysiology data. It is suitable as a second-stage expansion source because many datasets are organized in Neurodata Without Borders format and may include direct electrophysiological or calcium-imaging recordings.
+
+DANDI should not be the first target unless a specific dandiset is selected. The archive is broad, so it is useful for replication after the Allen branch has fixed proxy definitions and code structure.
+
+\subsection{Translation branch: Human Connectome Project resting-state fMRI and MEG}
+
+The Human Connectome Project provides brain-wide connectivity data, including resting-state fMRI and some MEG data. This branch is useful for translating HRSM from neuron-level dynamics into whole-brain functional connectivity. It is not ideal as the first branch because fMRI has low temporal resolution and BOLD signals are indirect. However, it can test whether HRSM state geometry appears at the connectome scale.
+
+This branch is appropriate after the neuron-level definitions have been validated. The main expected outputs would be functional-connectivity stability, subject-level state fingerprints, resting-state network persistence, and cross-session recoverability.
+
+\subsection{Transition branch: OpenNeuro anesthesia and sleep datasets}
+
+OpenNeuro provides openly available brain-imaging datasets, including fMRI, structural MRI, diffusion MRI, EEG, and MEG. A particularly relevant later branch is human propofol anesthesia, because it includes graded sedation and recovery states. Such data are not the correct starting point for Neurons HRSM, but they are ideal for later testing whether HRSM displacement tracks wakefulness, sedation, loss of responsiveness, and recovery.
+
+The anesthesia branch should be treated as consciousness-adjacent, not consciousness-explanatory. The empirical claim would be that neural homeostatic state geometry changes across altered responsiveness conditions.
+
+\section{Dataset comparison table}
+
+\begin{longtable}{p{0.18\textwidth}p{0.22\textwidth}p{0.26\textwidth}p{0.24\textwidth}}
+\toprule
+Dataset branch & Data type & HRSM role & Project status \\
+\midrule
+Allen Visual Coding Neuropixels & Mouse spiking activity across visual system regions & Primary neuron-level HRSM test of H, R, S, and M & Recommended first branch \\
+DANDI neurophysiology archive & Electrophysiology, optophysiology, behavior, NWB datasets & Replication and expansion after proxy freezing & Secondary branch \\
+Human Connectome Project & Resting-state fMRI, task fMRI, diffusion MRI, some MEG & Whole-brain connectome translation of HRSM & Later translation branch \\
+OpenNeuro anesthesia/sleep datasets & fMRI, EEG, MEG, BIDS datasets & Consciousness-adjacent transition tests involving sedation, sleep, and recovery & Later transition branch \\
+\bottomrule
+\end{longtable}
+
+\section{Initial hypotheses}
+
+\subsection{H1: Structured neural HRSM occupancy}
+
+Neural population states will not occupy HRSM space as an unstructured cloud. Instead, repeated stimulus conditions, brain regions, or behavioral states will form distinguishable domains.
+
+\subsection{H2: Memory improves neural-state prediction}
+
+Models including lagged neural states or explicit memory kernels will improve held-out prediction of future neural states relative to Markovian baselines that use only current state, current stimulus, and current behavior.
+
+\subsection{H3: Brain regions differ in HRSM signature}
+
+Cortical, hippocampal, and thalamic recordings will show different HRSM profiles. A possible expectation is that hippocampal or higher-order regions may show stronger $M$, visual cortex may show stronger stimulus-locked $S$, and thalamic regions may show distinctive gating or recoverability signatures. This must be treated as a hypothesis, not as an assumed result.
+
+\subsection{H4: Consciousness-adjacent transitions displace HRSM geometry}
+
+In later anesthesia or sleep branches, wakefulness, sedation, deep sedation, and recovery may occupy different regions of HRSM space. The minimum test is whether altered responsiveness changes recoverability, stability, and memory structure in a reproducible way.
+
+\section{First computational plan}
+
+The first simulation should be deliberately narrow. The recommended first analysis is Allen Visual Coding Neuropixels, using a limited number of sessions and a limited set of visual stimuli.
+
+The first computational steps are:
+
+\begin{enumerate}
+    \item Create a reproducible repository named \texttt{neurons\_hrsm\_sims}.
+    \item Build a metadata registry for candidate datasets, including dataset name, access route, modality, species, brain regions, time resolution, stimulus structure, and license constraints.
+    \item Write download or access scripts for AllenSDK Neuropixels data.
+    \item Select one or more sessions with sufficient units, repeated stimuli, and region labels.
+    \item Build neural population matrices as units by time bins, with stimulus and region metadata attached.
+    \item Define baseline neural state references per session and per region.
+    \item Compute provisional $H$, $R$, $S$, and $M$ proxies.
+    \item Orthogonalize the axes and test whether results survive proxy separation.
+    \item Compare Markovian and non-Markovian prediction models.
+    \item Generate diagnostic figures and tables before any manuscript extraction.
+\end{enumerate}
+
+\section{Minimum viable outputs}
+
+The first successful branch should produce:
+
+\begin{enumerate}
+    \item A dataset registry table.
+    \item A session-level metadata table.
+    \item A unit-level quality-control table.
+    \item A population-state matrix for selected regions and stimuli.
+    \item A proxy table with $H$, $R$, $S$, and $M$ values.
+    \item Orthogonalized HRSM axes.
+    \item A Markovian versus non-Markovian prediction comparison.
+    \item Region-wise HRSM domain plots.
+    \item Stimulus-transition recoverability plots.
+    \item A logbook entry recording failures, nulls, and revisions.
+\end{enumerate}
+
+\section{Failure criteria}
+
+This project should have explicit failure rules. The HRSM branch should not be considered supported if any of the following occur:
+
+\begin{enumerate}
+    \item The four axes collapse into a single activity-amplitude axis.
+    \item The memory term improves only in-sample fit but fails held-out validation.
+    \item $H$, $R$, $S$, and $M$ cannot be separated after orthogonalization.
+    \item Apparent region differences disappear after controlling for unit count, firing rate, session quality, and stimulus condition.
+    \item The results depend entirely on one session, one bin size, or one arbitrary threshold.
+    \item The proxies require post-hoc tuning to recover expected patterns.
+\end{enumerate}
+
+A negative result is still useful. If memory kernels fail to improve prediction, that should be reported as a constraint on the HRSM framework. The point is not to force the theory into neural data. The point is to test whether the theory survives.
+
+\section{Planned figures}
+
+\begin{enumerate}
+    \item \textbf{Figure 1: Neural HRSM concept map.} Schematic showing neural population recordings mapped into $H$, $R$, $S$, and $M$ axes.
+    \item \textbf{Figure 2: Dataset ladder.} Allen Neuropixels as primary neuron-level branch, DANDI as replication archive, HCP as connectome translation, and OpenNeuro anesthesia/sleep as transition branch.
+    \item \textbf{Figure 3: Population-state geometry.} Low-dimensional embedding of neural population states by stimulus and region.
+    \item \textbf{Figure 4: Recoverability trajectories.} Return-to-reference curves after stimulus transition or perturbation.
+    \item \textbf{Figure 5: Markovian versus non-Markovian prediction.} Held-out prediction improvement when lagged neural states are included.
+    \item \textbf{Figure 6: Region-wise HRSM occupancy.} Cortical, hippocampal, and thalamic HRSM profiles.
+\end{enumerate}
+
+\section{Planned tables}
+
+\begin{enumerate}
+    \item \textbf{Table 1: Dataset candidates and branch roles.}
+    \item \textbf{Table 2: Proxy definitions for $H$, $R$, $S$, and $M$.}
+    \item \textbf{Table 3: Session and region inclusion criteria.}
+    \item \textbf{Table 4: Markovian versus non-Markovian model comparison.}
+    \item \textbf{Table 5: HRSM axis correlations before and after orthogonalization.}
+    \item \textbf{Table 6: Region-wise HRSM summary statistics.}
+\end{enumerate}
+
+\section{Initial logbook entries}
+
+\subsection*{Entry 001. Project initiation: Neurons HRSM}
+
+\textbf{Date:} June 2026.
+
+\textbf{Question being tested:} Can neural population dynamics be mapped into a measurable HRSM state space without making unsupported claims about consciousness?
+
+\textbf{Motivation:} Neural systems are path-dependent. Their present responses reflect current input, prior activity, prior stimuli, adaptation, plasticity, and behavioral state. This makes neural systems a natural candidate for non-Markovian HRSM analysis.
+
+\textbf{Boundary condition:} Consciousness is not the first measured variable. The first measured object is neural population homeostasis.
+
+\textbf{Primary dataset selected:} Allen Brain Observatory Visual Coding Neuropixels.
+
+\textbf{Reason for selection:} It provides direct spiking data, repeated visual stimuli, multiple brain regions, and sufficient temporal resolution for memory-kernel testing.
+
+\textbf{Planned test:} Compare Markovian neural-state prediction against non-Markovian models containing lagged neural states or memory kernels.
+
+\textbf{Failure rule:} If the memory term does not improve held-out prediction after controlling for present state, stimulus, and behavior, $M_{\mathrm{neural}}$ must not be interpreted as a validated memory axis.
+
+\subsection*{Entry 002. Proxy discipline: avoid raw activity traps}
+
+\textbf{Date:} June 2026.
+
+\textbf{Question being tested:} Can $H$, $R$, $S$, and $M$ be defined without collapsing into raw firing rate or global activity amplitude?
+
+\textbf{Rationale:} Neural activity amplitude is ambiguous. High activity can represent responsiveness, noise, seizure-like instability, saturation, or stress. Therefore, $H$ cannot be raw firing rate, and $S$ cannot be simple correlation strength alone.
+
+\textbf{Current decision:} $H$ will be defined as usable response reserve, $R$ as return after transition, $S$ as coherent geometry preservation, and $M$ as predictive retained history.
+
+\textbf{Next action:} Implement proxy variants and then audit cross-axis correlation. Orthogonalization should be required before making biological claims.
+
+\subsection*{Entry 003. Dataset ladder established}
+
+\textbf{Date:} June 2026.
+
+\textbf{Question being tested:} Which datasets should define the first, second, and later HRSM branches?
+
+\textbf{Decision:} Allen Neuropixels is the first branch. DANDI is the replication archive. HCP is a later connectome-scale translation branch. OpenNeuro anesthesia and sleep datasets are later transition branches.
+
+\textbf{Reasoning:} The first branch should maximize temporal resolution and direct neural measurement. This makes Allen Neuropixels preferable to fMRI for initial HRSM testing. Human fMRI and anesthesia data remain important, but they should be introduced only after proxy definitions and memory tests are stable.
+
+\textbf{Next action:} Build the repository, dataset registry, Allen data access script, and first proxy computation script.
+
+\section{Repository plan}
+
+The proposed repository layout is:
+
+\begin{verbatim}
+neurons_hrsm_sims/
+  README.md
+  environment.yml
+  requirements.txt
+  configs/
+  data/
+    raw/
+    interim/
+    processed/
+  metadata/
+    dataset_registry.csv
+    allen_session_registry.csv
+  scripts/
+    00_build_dataset_registry.py
+    01_fetch_allen_neuropixels_metadata.py
+    02_select_allen_sessions.py
+    03_build_population_state_matrices.py
+    04_compute_neural_hrsm_proxies.py
+    05_fit_markovian_vs_memory_models.py
+    06_orthogonalize_neural_hrsm_axes.py
+    07_make_neural_hrsm_figures.py
+  results/
+    tables/
+    figures/
+    models/
+  logs/
+    logbook_neurons_hrsm.tex
+\end{verbatim}
+
+\section{Immediate next steps}
+
+The immediate next step is to create the repository skeleton and freeze the first dataset registry. After that, the first technical script should access Allen Visual Coding Neuropixels metadata, list available sessions, and select a small reproducible pilot subset.
+
+The first pilot should not attempt all regions, all sessions, or all stimuli. It should start with a narrow test: one to three sessions, visual cortex plus hippocampus or thalamus if available, and repeated stimulus blocks that permit transition and history-dependence analysis.
+
+\section{Citation notes}
+
+The current dataset choices are grounded in public documentation from Allen Brain Observatory, DANDI, Human Connectome Project, and OpenNeuro. Formal manuscript extraction should replace informal web references with stable dataset citations, methods papers, and official documentation entries.
+
+\bibliographystyle{plain}
+\bibliography{neurons_hrsm_references}
+
+\end{document}

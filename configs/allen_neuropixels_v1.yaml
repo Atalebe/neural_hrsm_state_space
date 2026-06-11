@@ -1,0 +1,70 @@
+project:
+  name: Neural_hrsm_state_space
+  branch: allen_neuropixels_v1
+  description: First operational branch for neural population HRSM using Allen-style Neuropixels data.
+
+runtime:
+  synthetic_smoke_test: true
+  random_seed: 42
+  overwrite: true
+
+paths:
+  raw_dir: data/raw/allen_neuropixels
+  interim_dir: data/interim/allen_neuropixels_v1
+  processed_dir: data/processed/allen_neuropixels_v1
+  results_dir: results
+  logs_dir: logs
+
+allen:
+  cache_dir: data/raw/allen_neuropixels/cache
+  manifest_name: allen_neuropixels_manifest.csv
+  session_limit: 3
+  regions_of_interest:
+    - VISp
+    - VISl
+    - VISal
+    - CA1
+    - LGd
+  stimulus_families:
+    - natural_scenes
+    - drifting_gratings
+    - spontaneous
+
+population_state:
+  bin_size_ms: 50
+  smoothing_sigma_bins: 1.0
+  min_units_per_region: 20
+  min_trials_per_condition: 10
+  zscore_within_session: true
+
+hrsm_axes:
+  H_reserve:
+    definition: Usable response capacity without saturation.
+    proxy: dynamic_range_signal_to_noise
+  R_recoverability:
+    definition: Return toward baseline after stimulus or state perturbation.
+    proxy: post_stimulus_return_rate
+  S_stability:
+    definition: Trial-to-trial and within-region population geometry coherence.
+    proxy: covariance_geometry_stability
+  M_memory:
+    definition: Historical dependence beyond present stimulus and present state.
+    proxy: lagged_prediction_gain
+
+memory_kernel:
+  lags_bins: [1, 2, 4, 8, 16, 32]
+  model: ridge_regression
+  alpha_grid: [0.1, 1.0, 10.0, 100.0]
+  controls:
+    shuffle_history: true
+    shuffle_stimulus_labels: true
+
+orthogonalization:
+  enabled: true
+  method: gram_schmidt_residualization
+  axis_order: [H, R, S, M]
+
+outputs:
+  write_tables: true
+  write_figures: true
+  figure_format: png

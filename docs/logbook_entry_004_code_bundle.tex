@@ -1,0 +1,24 @@
+\
+\section{Logbook Entry 004: Starter Code Bundle for Neural HRSM Operationalisation}
+
+\textbf{Date:} 2026-06-07
+
+\subsection{Purpose}
+
+This entry records the first executable repository bundle for operationalising the neural HRSM logbook. The repository is titled \texttt{Neural\_hrsm\_state\_space}. Its purpose is to translate the conceptual neural HRSM definitions into a reproducible computational workflow while preserving the methodological boundary that the pipeline measures neural population dynamics rather than consciousness itself.
+
+\subsection{Implemented repository structure}
+
+The bundle includes configuration files, reusable source code, dataset-branch scripts, run manifests, documentation, and output directories. The primary branch is \texttt{allen\_neuropixels\_v1}, with additional stubs for DANDI replication, HCP connectome translation, and OpenNeuro transition-state analysis.
+
+\subsection{First operational workflow}
+
+The first workflow executes a synthetic smoke test. This smoke test creates an Allen-style binned spike table, builds a population state matrix, computes first-pass H, R, S, and M proxies, applies sequential residualisation as an orthogonality audit, estimates lagged prediction gain as a preliminary memory-kernel test, and generates two diagnostic figures.
+
+\subsection{Scientific interpretation}
+
+The code bundle is not yet an empirical result. It is a scaffold that tests whether the planned analysis can be run from raw or synthetic neural population observations to HRSM tables and figures. Real-data interpretation should only begin after Allen Neuropixels data are attached and branch-specific quality-control rules are enforced.
+
+\subsection{Failure criteria}
+
+The branch should be treated as failing or requiring redesign if H, R, S, and M collapse into a single activity-amplitude axis, if the memory term does not outperform shuffled-history controls, if region-level differences disappear after orthogonalisation, or if the inferred HRSM domains are dominated by preprocessing artefacts rather than neural state structure.

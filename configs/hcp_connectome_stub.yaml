@@ -1,0 +1,13 @@
+project:
+  name: Neural_hrsm_state_space
+  branch: hcp_connectome_stub
+runtime:
+  synthetic_smoke_test: true
+paths:
+  raw_dir: data/raw/hcp
+  interim_dir: data/interim/hcp_connectome
+  processed_dir: data/processed/hcp_connectome
+  results_dir: results
+notes:
+  purpose: Later translation branch from neuron-level HRSM to whole-brain functional connectivity HRSM.
+  caution: fMRI is indirect and should not be used as first evidence for neuron-level memory.

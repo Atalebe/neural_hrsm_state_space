@@ -1,0 +1,2 @@
+branch,mode,n_rows,n_sessions,n_regions,n_units,output
+allen_neuropixels_v1,synthetic_smoke_test,768000,2,4,320,data/interim/allen_neuropixels_v1/synthetic_binned_spike_table.csv

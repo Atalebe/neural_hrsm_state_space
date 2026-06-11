@@ -1,0 +1,13 @@
+project:
+  name: Neural_hrsm_state_space
+  branch: openneuro_anesthesia_stub
+runtime:
+  synthetic_smoke_test: true
+paths:
+  raw_dir: data/raw/openneuro
+  interim_dir: data/interim/openneuro_anesthesia
+  processed_dir: data/processed/openneuro_anesthesia
+  results_dir: results
+notes:
+  purpose: Later consciousness-adjacent transition branch using sedation, sleep, or recovery datasets.
+  caution: Use only after H, R, S, and M are stable in direct neural activity data.

@@ -1,0 +1,20 @@
+name: neural_hrsm
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - pyyaml
+  - tqdm
+  - statsmodels
+  - pip
+  - pip:
+      # Optional for real data branches. Uncomment when needed.
+      # - allensdk
+      # - pynwb
+      # - dandi
+      # - nilearn

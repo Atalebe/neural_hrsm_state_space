@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Environments
+.env
+.venv/
+venv/
+env/
+*.egg-info/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Windows/WSL downloaded-file metadata
+*:Zone.Identifier
+
+# Large raw data should not be committed
+data/raw/
+data/external/
+*.h5
+*.hdf5
+*.nwb
+*.mat
+*.npz
+*.pkl
+
+# Temporary outputs
+logs/*.tmp
