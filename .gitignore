@@ -34,3 +34,6 @@ data/external/
 
 # Temporary outputs
 logs/*.tmp
+
+# Local AllenSDK environment
+.venv_allen/
