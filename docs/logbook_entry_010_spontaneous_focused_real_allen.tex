@@ -1,0 +1,272 @@
+\section{Logbook Entry 010: Spontaneous-Focused Real Allen Neural HRSM}
+\label{sec:logbook-entry-010-spontaneous-focused-real-allen}
+
+\subsection{Purpose}
+
+This entry records the first spontaneous-focused real Allen Neuropixels Neural HRSM run. The purpose was to test whether the controlled memory structure found in the broader scaled v1 run becomes stronger when the analysis is restricted to longer spontaneous activity windows.
+
+The previous target-variable sweep showed that retained neural history was most visible in population organization, especially active-unit fraction and population entropy, and that spontaneous activity was the most promising condition. This entry tests that branch directly.
+
+\subsection{Dataset and Extraction}
+
+The analysis used Allen Visual Coding Neuropixels session \texttt{715093703}. The accepted low-memory HDF5 route was used. Full AllenSDK/PyNWB session loading was avoided because it previously caused an out-of-memory kill on the current machine.
+
+The extraction script was:
+
+\begin{verbatim}
+scripts/allen/06b_extract_real_allen_binned_spikes_h5py.py
+\end{verbatim}
+
+The run used the following settings:
+
+\begin{verbatim}
+regions: VISp VISl LGd CA1
+stimulus family: spontaneous
+bin size: 0.25 seconds
+max units per region: 20
+max presentations: 15
+max duration per presentation: 60 seconds
+\end{verbatim}
+
+The extraction produced:
+
+\begin{verbatim}
+real_binned_spike_table.csv rows = 169,280
+selected_units.csv rows = 80
+selected_stimulus_presentations.csv rows = 15
+\end{verbatim}
+
+Each region contributed 20 selected units and 42,320 binned spike rows.
+
+\subsection{Population-State Matrix}
+
+The binned spike table was converted into a population-state matrix using:
+
+\begin{verbatim}
+scripts/allen/07_build_real_population_state_matrix_h5py.py
+\end{verbatim}
+
+The resulting population-state matrix contained 8,464 rows. Each region contributed 2,116 population-state rows.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Region & Mean population rate & Mean active fraction & Mean state speed \\
+\hline
+CA1 & 5.441588 & 0.371314 & 16.690452 \\
+LGd & 10.116352 & 0.668384 & 14.006771 \\
+VISl & 2.696786 & 0.330884 & 5.939399 \\
+VISp & 8.056238 & 0.447094 & 11.753378 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{HRSM Projection}
+
+The HRSM proxy layer was computed using:
+
+\begin{verbatim}
+scripts/allen/08_compute_real_hrsm_proxies_h5py.py
+\end{verbatim}
+
+The HRSM projection produced 8,464 bin-level rows and 4 region-level spontaneous summary rows. The orthogonality audit produced:
+
+\begin{verbatim}
+max_abs_offdiag_corr_orthogonalized = 3.994795344112528e-15
+\end{verbatim}
+
+This indicates that the spontaneous-focused HRSM axes remained separated to numerical precision after orthogonalization.
+
+\subsection{HRSM State Summary}
+
+The spontaneous-focused HRSM state-space structure was clearer than the broader mixed-stimulus v1 run.
+
+\begin{center}
+\begin{tabular}{lrrrrrl}
+\hline
+Region & H & R & S & M & Phi & Domain \\
+\hline
+CA1 & -0.186355 & -0.234482 & -0.005553 & -0.178562 & -0.192265 & mid\_low\_mid\_low \\
+LGd & 0.801798 & 0.501130 & 0.245012 & 0.320284 & 0.408474 & high\_high\_high\_high \\
+VISl & -0.872608 & 0.458395 & 0.212267 & -0.099405 & -0.110986 & low\_mid\_high\_high \\
+VISp & 0.549241 & 0.535890 & -0.123516 & -0.136785 & 0.176043 & high\_high\_low\_mid \\
+\hline
+\end{tabular}
+\end{center}
+
+The strongest balanced HRSM state was LGd spontaneous, which occupied a fully high domain across H, R, S, and M. VISp spontaneous showed high reserve and high recoverability but weaker stability and memory. VISl spontaneous showed low reserve but higher stability. CA1 was the weakest spontaneous HRSM state in this extraction.
+
+\subsection{Mean-Rate Memory-Kernel Audit}
+
+The mean-rate memory audit was performed using:
+
+\begin{verbatim}
+scripts/allen/09_fit_real_memory_kernel_h5py.py
+\end{verbatim}
+
+The target was one-step prediction of \texttt{population\_mean\_rate\_hz}. The model used lags 1 and 2, ridge regularization with \(\alpha = 1.0\), and leave-trial-out cross-validation.
+
+All four regions showed positive memory gain:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Region & Baseline \(R^2\) & Memory \(R^2\) & Gain \(\Delta R^2\) \\
+\hline
+CA1 & 0.107531 & 0.154858 & 0.047327 \\
+LGd & 0.494328 & 0.509911 & 0.015583 \\
+VISl & 0.414906 & 0.491136 & 0.076230 \\
+VISp & 0.511125 & 0.535602 & 0.024476 \\
+\hline
+\end{tabular}
+\end{center}
+
+The pooled result was:
+
+\begin{verbatim}
+median_baseline_r2 = 0.454617
+median_memory_r2 = 0.500524
+median_memory_gain_r2 = 0.035902
+mean_memory_gain_r2 = 0.040904
+fraction_positive_gain = 1.0
+\end{verbatim}
+
+This is the first real Allen branch in which the mean-rate memory gain is positive across all tested regions.
+
+\subsection{Shuffled-Lag Negative Control}
+
+The shuffled-lag negative control was run using:
+
+\begin{verbatim}
+scripts/allen/11_real_memory_negative_controls_h5py.py
+\end{verbatim}
+
+All four regions exceeded their shuffled-lag controls:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Region & Observed gain & Shuffle mean & Observed minus shuffle & Empirical \(p\) \\
+\hline
+CA1 & 0.047327 & -0.004731 & 0.052058 & 0.009901 \\
+LGd & 0.015583 & -0.002777 & 0.018361 & 0.009901 \\
+VISl & 0.076230 & -0.002731 & 0.078961 & 0.009901 \\
+VISp & 0.024476 & -0.002656 & 0.027132 & 0.009901 \\
+\hline
+\end{tabular}
+\end{center}
+
+The pooled negative-control result was:
+
+\begin{verbatim}
+median_observed_gain = 0.035902
+mean_observed_gain = 0.040904
+fraction_observed_positive = 1.0
+median_shuffle_gain_mean = -0.002754
+mean_shuffle_gain_mean = -0.003224
+median_observed_minus_shuffle = 0.039595
+mean_observed_minus_shuffle = 0.044128
+fraction_observed_above_shuffle_mean = 1.0
+median_empirical_p = 0.009901
+\end{verbatim}
+
+This supports a controlled spontaneous-memory effect. The effect is modest in absolute magnitude, but it is consistent across all four regions and survives shuffled-lag temporal disruption.
+
+\subsection{Target-Variable Sweep}
+
+The spontaneous-focused target sweep was run using:
+
+\begin{verbatim}
+scripts/allen/13_real_memory_target_sweep_h5py.py
+\end{verbatim}
+
+The target sweep repeated the memory audit and shuffled-lag controls across six population-state variables. The ranked result was:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Target & Median observed gain & Median shuffled mean & Median observed minus shuffled & Rank \\
+\hline
+active\_unit\_fraction & 0.076396 & -0.003152 & 0.079112 & 1 \\
+population\_rate\_entropy & 0.064254 & -0.003510 & 0.067510 & 2 \\
+population\_std\_rate\_hz & 0.040226 & -0.004116 & 0.043688 & 3 \\
+population\_l2\_rate\_norm & 0.036876 & -0.003378 & 0.040872 & 4 \\
+population\_mean\_rate\_hz & 0.035902 & -0.002938 & 0.039490 & 5 \\
+population\_state\_speed & -0.010281 & -0.005175 & -0.004838 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+The strongest target was active-unit fraction, followed by population entropy. This confirms that the spontaneous memory signal is most visible in population recruitment and distributional organization, rather than in state speed.
+
+\subsection{Top Target-Specific Effects}
+
+The strongest controlled target-specific effects were:
+
+\begin{verbatim}
+active_unit_fraction, CA1 spontaneous:
+observed_minus_shuffle_mean = 0.121145
+
+population_rate_entropy, VISl spontaneous:
+observed_minus_shuffle_mean = 0.107696
+
+population_rate_entropy, CA1 spontaneous:
+observed_minus_shuffle_mean = 0.100571
+
+active_unit_fraction, VISl spontaneous:
+observed_minus_shuffle_mean = 0.095363
+
+population_mean_rate_hz, VISl spontaneous:
+observed_minus_shuffle_mean = 0.079253
+\end{verbatim}
+
+This differs from the broader mixed-stimulus v1 run, where VISp spontaneous dominated many targets. In the longer spontaneous-focused extraction, the strongest controlled memory effects shift toward active-unit recruitment in CA1 and entropy structure in VISl and CA1.
+
+\subsection{Figures}
+
+The spontaneous-focused visual story was generated using:
+
+\begin{verbatim}
+scripts/allen/10_make_real_hrsm_visual_story_h5py.py
+scripts/allen/12_make_real_memory_control_figures_h5py.py
+scripts/allen/14_make_real_memory_target_sweep_figures_h5py.py
+\end{verbatim}
+
+The figure outputs are stored in:
+
+\begin{verbatim}
+results/figures/real_allen/session_715093703_spontaneous_v1/
+\end{verbatim}
+
+The most important figures are:
+
+\begin{verbatim}
+real_allen_phi_neural_heatmap.png
+real_allen_hrsm_axis_H.png
+real_allen_hrsm_axis_R.png
+real_allen_hrsm_axis_S.png
+real_allen_hrsm_axis_M.png
+real_allen_observed_minus_shuffle_gain.png
+real_allen_shuffle_distribution_with_observed.png
+real_allen_target_sweep_ranked_controlled_memory.png
+real_allen_target_sweep_top_group_effects.png
+real_allen_target_region_controlled_memory_heatmap.png
+\end{verbatim}
+
+\subsection{Interpretation}
+
+The spontaneous-focused run is the first real Allen Neural HRSM branch in which the memory result becomes coherent rather than merely suggestive. The broad mixed-stimulus run showed weak and mixed memory gain. The spontaneous-focused run shows positive gain in all four regions, consistent superiority over shuffled-lag controls, and a target sweep that identifies active-unit recruitment and entropy as the strongest memory-sensitive variables.
+
+This does not imply consciousness has been measured. It means that spontaneous neural population activity contains retained temporal structure that is predictive of future population organization beyond a present-state baseline and beyond shuffled lag history.
+
+\subsection{Limitations}
+
+The result is still based on one Allen session. The empirical \(p\)-values are uncorrected and based on 100 shuffled controls. The analysis uses one lag configuration, one ridge model, and one extraction scale. The result should therefore be treated as a strong within-session branch, not as a final cross-session biological claim.
+
+\subsection{Conclusion}
+
+The spontaneous-focused branch supports a controlled non-Markovian neural signal in real Allen Neuropixels data. The signal is modest in absolute \(R^2\), but it is consistent across regions, survives shuffled-lag controls, and is strongest for active-unit fraction and population entropy. This suggests that neural memory in the HRSM sense is better interpreted as retained organization and recruitment structure, not simply elevated firing rate.
+
+\subsection{Next Step}
+
+The next required step is replication in a second Allen session. Recommended candidate sessions are \texttt{719161530} or \texttt{750749662}, because both contain VISp, VISl, LGd, and CA1 with usable unit counts. The same spontaneous-focused pipeline should be repeated without changing the analysis logic.
