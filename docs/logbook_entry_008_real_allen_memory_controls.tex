@@ -1,0 +1,138 @@
+\section{Logbook Entry 008: Shuffled-Lag Negative Controls for Real Allen Neural Memory}
+\label{sec:logbook-entry-008-real-allen-memory-controls}
+
+\subsection{Purpose}
+
+This entry records the first shuffled-lag negative-control audit for the real Allen Neuropixels Neural HRSM branch. The purpose was to test whether the observed lagged-history contribution in the scaled v1 memory audit survives when the temporal alignment of the lag features is deliberately broken.
+
+The control does not test consciousness. It tests whether retained neural history has predictive structure beyond a shuffled lag-history null.
+
+\subsection{Input State}
+
+The analysis used the scaled real Allen v1 population-state matrix from session \texttt{715093703}. The matrix was produced through the low-memory HDF5 extraction route and contained 3,012 population-state rows across four regions and three stimulus families. The regions were VISp, VISl, LGd, and CA1. The stimulus families were drifting gratings, natural scenes, and spontaneous activity.
+
+The memory target was one-step prediction of:
+
+\begin{verbatim}
+population_mean_rate_hz
+\end{verbatim}
+
+The model used lags 1 and 2, ridge regularization with \(\alpha = 1.0\), and leave-trial-out cross-validation.
+
+\subsection{Control Definition}
+
+The negative-control script was:
+
+\begin{verbatim}
+scripts/allen/11_real_memory_negative_controls_h5py.py
+\end{verbatim}
+
+The implemented control was a shuffled-lag row permutation. Present-state features and next-state targets were left unchanged. Lag-feature rows were jointly permuted within each region-stimulus group. This preserves the distribution and covariance structure of lagged features, but breaks their temporal alignment with the current neural trajectory.
+
+This control asks a direct question: does the real aligned lag history outperform lag history with the same values but the wrong temporal order?
+
+\subsection{Output Files}
+
+The control produced three result files:
+
+\begin{verbatim}
+results/real_allen/session_715093703_h5py_v1/
+    real_memory_negative_control_summary.csv
+    real_memory_negative_control_pooled_summary.csv
+    real_memory_negative_control_shuffles.csv
+\end{verbatim}
+
+The per-shuffle file contained 800 rows, corresponding to 8 valid region-stimulus groups and 100 shuffles per group.
+
+\subsection{Pooled Result}
+
+The pooled summary was:
+
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Quantity & Value \\
+\hline
+Valid groups & 8 \\
+Median observed gain & 0.0004399958 \\
+Mean observed gain & 0.0142956457 \\
+Fraction observed positive & 0.50 \\
+Median shuffled gain mean & -0.0349323666 \\
+Mean shuffled gain mean & -0.0373072945 \\
+Median observed minus shuffled mean & 0.0516360433 \\
+Mean observed minus shuffled mean & 0.0516029402 \\
+Fraction observed above shuffled mean & 0.875 \\
+Median empirical \(p\) & 0.0445544554 \\
+\hline
+\end{tabular}
+\end{center}
+
+The raw observed memory gain remained weak. However, the aligned lag structure outperformed the shuffled-lag mean in 7 of 8 valid groups. This changes the interpretation. The memory term is not yet globally strong in absolute \(R^2\), but temporal alignment carries information that is lost when lag history is shuffled.
+
+\subsection{Region-Stimulus Result}
+
+The strongest controlled support occurred in spontaneous activity. VISp spontaneous showed the largest observed-minus-shuffle separation:
+
+\begin{verbatim}
+observed_memory_gain_r2 = 0.1646355630
+shuffle_gain_mean = -0.0055310114
+observed_minus_shuffle_mean = 0.1701665743
+empirical_p_shuffle_ge_observed = 0.0099009901
+\end{verbatim}
+
+VISl spontaneous also showed a positive controlled effect:
+
+\begin{verbatim}
+observed_memory_gain_r2 = 0.0553626374
+shuffle_gain_mean = -0.0143337418
+observed_minus_shuffle_mean = 0.0696963792
+empirical_p_shuffle_ge_observed = 0.0099009901
+\end{verbatim}
+
+LGd spontaneous showed a smaller but still positive controlled effect:
+
+\begin{verbatim}
+observed_memory_gain_r2 = 0.0188900547
+shuffle_gain_mean = -0.0136570948
+observed_minus_shuffle_mean = 0.0325471495
+empirical_p_shuffle_ge_observed = 0.0099009901
+\end{verbatim}
+
+VISl drifting gratings and VISp drifting gratings also exceeded their shuffled controls, although their absolute observed gains were small. CA1 spontaneous was the main failure case. Its observed memory gain was negative and worse than its shuffled-lag control.
+
+\subsection{Visual Controls}
+
+The visual-control script was:
+
+\begin{verbatim}
+scripts/allen/12_make_real_memory_control_figures_h5py.py
+\end{verbatim}
+
+It produced four figures:
+
+\begin{verbatim}
+real_allen_observed_minus_shuffle_gain.png
+real_allen_observed_vs_shuffle_memory_gain.png
+real_allen_shuffle_empirical_p_values.png
+real_allen_shuffle_distribution_with_observed.png
+\end{verbatim}
+
+These figures show that the memory term is weak in raw model improvement but usually stronger than the shuffled-lag null. The most visually important figure is \texttt{real\_allen\_observed\_minus\_shuffle\_gain.png}, because it separates absolute memory gain from controlled temporal-alignment gain.
+
+\subsection{Interpretation}
+
+The scaled v1 memory audit should not be described as a strong global non-Markovian neural result. The median observed gain is nearly zero, and only half of the raw observed gains are positive. However, the shuffled-lag control indicates that the true temporal ordering of lagged neural history matters in most valid groups. This supports a cautious interpretation: retained neural history is detectable relative to shuffled history, but its absolute predictive contribution is small and region dependent in the current session.
+
+The strongest evidence points toward spontaneous activity rather than visually driven blocks. VISp spontaneous, VISl spontaneous, and LGd spontaneous should therefore become priority targets in the next analysis.
+
+\subsection{Limitations}
+
+The empirical \(p\)-values are uncorrected and based on 100 shuffles per group. They should not be overinterpreted as final inferential statistics. The analysis uses one Allen session, one target variable, one lag set, and one model class. The control breaks temporal alignment of lag features, but it does not yet include all necessary nulls, such as trial-order shuffle, region-label permutation, circular lag shift, or blockwise phase randomization.
+
+\subsection{Conclusion}
+
+The negative-control result strengthens the Neural HRSM memory branch, but in a restricted way. The memory effect is not globally large, but aligned lag history contains predictive structure that shuffled lag history usually loses. The next stage should test whether this controlled memory effect persists across target variables, especially population-state speed, active-unit fraction, entropy, and L2 norm.
+
+\subsection{Next Step}
+
+The next script should run a target-variable sweep using the same memory and shuffled-lag control framework. The goal is to determine whether memory is weak only for mean firing rate, or whether it is stronger for state deformation, active-unit recruitment, or population entropy.
