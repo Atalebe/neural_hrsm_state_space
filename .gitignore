@@ -37,3 +37,6 @@ logs/*.tmp
 
 # Local AllenSDK environment
 .venv_allen/
+
+# Real Allen derived/interim outputs, regenerate locally
+data/interim/allen_neuropixels_real/
