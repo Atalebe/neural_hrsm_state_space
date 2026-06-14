@@ -40,3 +40,6 @@ logs/*.tmp
 
 # Real Allen derived/interim outputs, regenerate locally
 data/interim/allen_neuropixels_real/
+
+# Real Allen processed outputs, regenerate locally
+data/processed/allen_neuropixels_real/
