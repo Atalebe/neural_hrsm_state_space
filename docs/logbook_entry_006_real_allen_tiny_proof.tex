@@ -1,0 +1,100 @@
+\section{Logbook Entry 006: Real Allen Neuropixels Tiny Proof-of-Path}
+\label{sec:logbook-entry-006-real-allen-tiny-proof}
+
+\subsection{Purpose}
+
+This entry records the first complete real-data proof-of-path for the Neural HRSM state-space repository. The aim was not to establish a final biological result, but to verify that real Allen Visual Coding Neuropixels data can pass through the full low-memory HRSM pipeline without relying on synthetic scaffolding.
+
+\subsection{Computational Constraint}
+
+The first full AllenSDK and PyNWB extraction attempt caused an out-of-memory kill on a machine with approximately 7.2 GiB RAM and no swap. The killed Python process reached approximately 3.6 GiB resident memory while several Cobaya runs were active. A manual 8 GiB swapfile was then added on the Linux root filesystem. However, the production route was changed away from full PyNWB loading. The accepted path is now direct HDF5 extraction through \texttt{h5py}, which avoids constructing the full NWB object.
+
+\subsection{Low-Memory Data Path}
+
+The cached Allen NWB file for session \texttt{715093703} was probed directly using \texttt{h5py}. The file size was approximately 2.856 GB. The HDF5 probe confirmed direct access to the required data structures, including \texttt{/units/spike\_times}, \texttt{/units/spike\_times\_index}, unit quality fields, peak channel identifiers, electrode locations, and stimulus interval tables for drifting gratings, natural scenes, and spontaneous presentations.
+
+\subsection{Extraction}
+
+A tiny real-data extraction was performed using:
+
+\begin{verbatim}
+scripts/allen/06b_extract_real_allen_binned_spikes_h5py.py
+\end{verbatim}
+
+The extraction used session \texttt{715093703}, four target regions, five units per region, three presentations per stimulus family, a bin size of 0.5 seconds, and a maximum duration of 5 seconds per presentation. The selected regions were VISp, VISl, LGd, and CA1. The selected stimulus families were drifting gratings, natural scenes, and spontaneous activity.
+
+The extraction produced 840 binned spike rows, 20 selected units, and 9 selected stimulus presentations. All four target regions were represented across all three stimulus families.
+
+\subsection{Population-State Matrix}
+
+The real binned spike table was converted into a region-level population-state matrix using:
+
+\begin{verbatim}
+scripts/allen/07_build_real_population_state_matrix_h5py.py
+\end{verbatim}
+
+The population-state matrix contained 168 rows and 26 columns. Each row represented a region-level population state for one session, stimulus family, presentation, and time bin. The state descriptors included mean firing rate, median firing rate, firing-rate dispersion, maximum rate, active-unit fraction, L2 rate norm, rate entropy, local temporal differences, and population state speed.
+
+\subsection{HRSM Proxy Result}
+
+The real population-state matrix was projected into Neural HRSM coordinates using:
+
+\begin{verbatim}
+scripts/allen/08_compute_real_hrsm_proxies_h5py.py
+\end{verbatim}
+
+The HRSM proxy layer produced 168 bin-level HRSM rows and 12 region-stimulus summary rows. The orthogonality audit produced:
+
+\begin{verbatim}
+max_abs_offdiag_corr_orthogonalized = 2.058160651445289e-15
+\end{verbatim}
+
+This indicates that the first real-data HRSM projection did not collapse into correlated axes after orthogonalization. The result is important as a computational validation step, because neural proxies derived from related firing-rate features can easily contaminate one another.
+
+\subsection{Memory-Kernel Audit}
+
+A conservative real-data memory-kernel audit was performed using:
+
+\begin{verbatim}
+scripts/allen/09_fit_real_memory_kernel_h5py.py
+\end{verbatim}
+
+The audit tested whether lagged population-state history improved one-step prediction of \texttt{population\_mean\_rate\_hz} beyond a present-state baseline. The analysis used lags 1 and 2, ridge regularization with \(\alpha = 1.0\), and leave-trial-out validation.
+
+Eight region-stimulus groups passed the minimum-row threshold. The pooled summary was:
+
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Quantity & Value \\
+\hline
+Number of valid groups & 8 \\
+Median baseline \(R^2\) & -2.9388600053 \\
+Median memory \(R^2\) & -0.9527317655 \\
+Median memory gain \(\Delta R^2\) & 0.7137137198 \\
+Mean memory gain \(\Delta R^2\) & 1.0139725843 \\
+Fraction positive gain & 0.75 \\
+\hline
+\end{tabular}
+\end{center}
+
+The strongest positive gains occurred in CA1 drifting gratings, VISp drifting gratings, VISl drifting gratings, and LGd drifting gratings. Negative gains appeared in CA1 spontaneous and VISp spontaneous.
+
+\subsection{Interpretation}
+
+This result should be interpreted as a real-data proof-of-path, not as a final biological claim. The tiny extraction contains too few supervised rows for stable inference, especially after lagging. Several \(R^2\) values are negative, indicating poor cross-validated prediction under small-sample conditions. The scientifically valid conclusion is that real Allen Neuropixels data can now pass through the full Neural HRSM machinery, and that lagged history can be tested directly against a present-state baseline.
+
+\subsection{Current Status}
+
+The Neural HRSM branch now has an operational real-data route:
+
+\begin{verbatim}
+Allen NWB -> h5py extraction -> binned spikes -> population states
+          -> H/R/S/M proxies -> orthogonality audit -> memory-kernel audit
+\end{verbatim}
+
+The low-memory HDF5 route is the accepted production path. The full AllenSDK and PyNWB session extraction route should be treated as deprecated on the current machine unless substantially more RAM is available.
+
+\subsection{Next Step}
+
+The next step is to scale the extraction modestly while staying within the low-memory HDF5 route. A reasonable next run should use 10 units per region, 20 presentations per visual family, the available spontaneous presentations, a bin size of 0.25 seconds, and a maximum duration of 10 seconds. This should increase the supervised rows enough to test whether the memory-gain pattern survives beyond the tiny proof-of-path.
