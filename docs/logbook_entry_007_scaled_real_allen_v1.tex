@@ -1,0 +1,124 @@
+\section{Logbook Entry 007: Scaled Real Allen Neuropixels HRSM v1}
+\label{sec:logbook-entry-007-scaled-real-allen-v1}
+
+\subsection{Purpose}
+
+This entry records the first scaled real-data Neural HRSM run on Allen Visual Coding Neuropixels session \texttt{715093703}. The purpose was to move beyond the tiny proof-of-path extraction and test whether the low-memory HDF5 pipeline could produce a larger, more interpretable real HRSM state space and a more stable memory-kernel audit.
+
+\subsection{Extraction}
+
+The accepted extraction route used direct HDF5 access through \texttt{h5py}, not full AllenSDK/PyNWB session loading. This was necessary because full PyNWB loading caused an out-of-memory kill on the current machine. The scaled extraction used:
+
+\begin{verbatim}
+scripts/allen/06b_extract_real_allen_binned_spikes_h5py.py
+\end{verbatim}
+
+The selected session was \texttt{715093703}. The selected regions were VISp, VISl, LGd, and CA1. The selected stimulus families were drifting gratings, natural scenes, and spontaneous activity. The extraction used a bin size of 0.25 seconds, 10 units per region, 20 presentations per visual stimulus family, and a maximum duration of 10 seconds per presentation.
+
+The extraction produced 30,120 binned spike rows, 40 selected units, and 55 selected stimulus presentations.
+
+\subsection{Population-State Matrix}
+
+The real binned spike table was converted into a population-state matrix using:
+
+\begin{verbatim}
+scripts/allen/07_build_real_population_state_matrix_h5py.py
+\end{verbatim}
+
+The resulting population-state matrix contained 3,012 rows. The matrix preserved all four target regions and all three stimulus families.
+
+The largest state blocks were the spontaneous blocks, with 533 state rows per region. Drifting gratings produced 180 state rows per region, and natural scenes produced 40 state rows per region.
+
+\subsection{HRSM Projection}
+
+The population-state matrix was projected into H, R, S, and M coordinates using:
+
+\begin{verbatim}
+scripts/allen/08_compute_real_hrsm_proxies_h5py.py
+\end{verbatim}
+
+The HRSM layer produced 3,012 bin-level rows and 12 region-stimulus summary rows. The orthogonality audit produced:
+
+\begin{verbatim}
+max_abs_offdiag_corr_orthogonalized = 3.341516372978766e-15
+\end{verbatim}
+
+This confirms that the scaled real-data H, R, S, and M axes were decorrelated to numerical precision after orthogonalization.
+
+\subsection{Selected Domain Results}
+
+The strongest positive HRSM summary state occurred in LGd spontaneous activity:
+
+\begin{verbatim}
+H = 0.4468799294
+R = 0.4388528567
+S = 0.2446306384
+M = 0.4172458956
+Phi_neural = 0.3179725390
+hrsm_domain = high_mid_high_high
+\end{verbatim}
+
+VISp drifting gratings occupied a high-reserve and high-memory but low-recoverability and low-stability domain:
+
+\begin{verbatim}
+hrsm_domain = high_low_low_high
+\end{verbatim}
+
+VISl spontaneous activity occupied a low-reserve, high-recoverability, high-stability, and low-memory domain:
+
+\begin{verbatim}
+hrsm_domain = low_high_high_low
+\end{verbatim}
+
+These assignments are biologically plausible but should still be treated as early real-data structure rather than final interpretation.
+
+\subsection{Memory-Kernel Audit}
+
+The memory-kernel audit was performed using:
+
+\begin{verbatim}
+scripts/allen/09_fit_real_memory_kernel_h5py.py
+\end{verbatim}
+
+The target was one-step prediction of \texttt{population\_mean\_rate\_hz}. The audit used lags 1 and 2, ridge regularization with \(\alpha = 1.0\), and leave-trial-out validation.
+
+Eight region-stimulus groups passed the minimum-row threshold. Natural scenes did not enter the lagged memory audit because the selected natural-scene presentations produced too few within-trial bins after lagging.
+
+The pooled memory summary was:
+
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Quantity & Value \\
+\hline
+Valid groups & 8 \\
+Median baseline \(R^2\) & 0.3061516323 \\
+Median memory \(R^2\) & 0.3744596476 \\
+Median memory gain \(\Delta R^2\) & 0.0004399958 \\
+Mean memory gain \(\Delta R^2\) & 0.0142956457 \\
+Fraction positive gain & 0.50 \\
+\hline
+\end{tabular}
+\end{center}
+
+The strongest positive memory gain occurred in VISp spontaneous activity:
+
+\begin{verbatim}
+baseline R^2 = 0.2125641081
+memory R^2 = 0.3771996711
+memory gain = 0.1646355630
+\end{verbatim}
+
+Additional positive gains occurred in VISl spontaneous, LGd spontaneous, and VISl drifting gratings. Negative or near-zero gains occurred in CA1 drifting gratings, CA1 spontaneous, LGd drifting gratings, and VISp drifting gratings.
+
+\subsection{Interpretation}
+
+The scaled real Allen v1 run validates the real-data Neural HRSM pipeline. It does not yet establish a robust global non-Markovian memory effect. The tiny proof-of-path showed large apparent memory gains, but the scaled v1 run reduced those gains to a weak and mixed pattern. This is a necessary correction. The present result shows that the machinery is stable, the HRSM axes remain separable, and the memory term can be tested without synthetic scaffolding, but the memory signal is currently region- and stimulus-dependent rather than globally strong.
+
+\subsection{Conclusion}
+
+The scaled v1 result should be described as a successful real-data HRSM operationalization with a neutral-to-weak memory-kernel result. The next phase should test whether memory gain strengthens under longer continuous blocks, different target variables, additional sessions, and explicit negative controls.
+
+\subsection{Next Step}
+
+The next analysis should add diagnostic figures and negative controls. Recommended controls include shuffled trial order, shuffled lag history within region, region-label permutation, and a present-state-only null under matched cross-validation. These controls are required before making any strong claim about neural non-Markovian dynamics.
