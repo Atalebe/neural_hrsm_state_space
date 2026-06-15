@@ -1,0 +1,148 @@
+\section{Logbook Entry 012: Cross-Session Spontaneous Allen HRSM Synthesis}
+\label{sec:logbook-entry-012-cross-session-spontaneous-allen}
+
+\subsection{Purpose}
+
+This entry records the first cross-session synthesis of the spontaneous-focused Neural HRSM memory branch. The goal was to determine whether the spontaneous-memory result observed in Allen session \texttt{715093703} replicated in a second independent Allen Neuropixels session, \texttt{719161530}, under the same extraction and analysis logic.
+
+\subsection{Sessions Included}
+
+The synthesis combined two spontaneous-focused real Allen runs:
+
+\begin{verbatim}
+results/real_allen/session_715093703_spontaneous_v1
+results/real_allen/session_719161530_spontaneous_v1
+\end{verbatim}
+
+Both sessions used direct low-memory HDF5 extraction from cached NWB files. Both used the same parameters: 20 units per region, four target regions, 15 spontaneous presentations, 0.25 second bins, and a maximum duration of 60 seconds per spontaneous presentation.
+
+Each session produced 8,464 population-state rows across VISp, VISl, LGd, and CA1.
+
+\subsection{Synthesis Script}
+
+The synthesis script was:
+
+\begin{verbatim}
+scripts/allen/16_cross_session_spontaneous_synthesis.py
+\end{verbatim}
+
+It combined session-level HRSM summaries, orthogonality audits, memory-kernel pooled summaries, shuffled-lag negative controls, target-variable sweeps, and region-level memory summaries.
+
+The output directory was:
+
+\begin{verbatim}
+results/cross_session/allen_spontaneous_v1
+\end{verbatim}
+
+The figure directory was:
+
+\begin{verbatim}
+results/figures/cross_session/allen_spontaneous_v1
+\end{verbatim}
+
+\subsection{Session-Level Result}
+
+The cross-session summary was:
+
+\begin{center}
+\begin{tabular}{lrrrrl}
+\hline
+Session & HRSM rows & Best region & Best \(\Phi\) & Median memory gain & Top target \\
+\hline
+715093703 & 8464 & LGd & 0.408474 & 0.035902 & active\_unit\_fraction \\
+719161530 & 8464 & LGd & 0.702594 & 0.037543 & active\_unit\_fraction \\
+\hline
+\end{tabular}
+\end{center}
+
+Both sessions had orthogonalized HRSM axes decorrelated to numerical precision:
+
+\begin{verbatim}
+715093703 max_abs_offdiag_corr = 3.994795344112528e-15
+719161530 max_abs_offdiag_corr = 4.175386477242158e-15
+\end{verbatim}
+
+\subsection{Memory-Control Result}
+
+Both sessions showed positive spontaneous mean-rate memory gain in all four regions. Both sessions also showed observed memory gains above shuffled-lag means in all spontaneous regions.
+
+The session-level controlled memory values were:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Session & Median observed gain & Mean observed gain & Median observed minus shuffled & Fraction above shuffled \\
+\hline
+715093703 & 0.035902 & 0.040904 & 0.039595 & 1.0 \\
+719161530 & 0.037543 & 0.032870 & 0.041368 & 1.0 \\
+\hline
+\end{tabular}
+\end{center}
+
+Both sessions had median empirical shuffled-lag \(p = 0.009901\), under 100 shuffled controls per group.
+
+\subsection{Target Synthesis}
+
+The cross-session target synthesis ranked targets by controlled memory strength. The top two targets replicated exactly across sessions:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Target & Sessions & Median rank & Median observed minus shuffled & Cross-session rank \\
+\hline
+active\_unit\_fraction & 2 & 1.0 & 0.072641 & 1 \\
+population\_rate\_entropy & 2 & 2.0 & 0.065010 & 2 \\
+population\_mean\_rate\_hz & 2 & 4.0 & 0.040437 & 3 \\
+population\_l2\_rate\_norm & 2 & 4.0 & 0.038750 & 4 \\
+population\_std\_rate\_hz & 2 & 4.0 & 0.036213 & 5 \\
+population\_state\_speed & 2 & 6.0 & 0.004022 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+This confirms that the memory signal is strongest for active-unit recruitment and population entropy, not for population-state speed.
+
+\subsection{Replication Flags}
+
+The synthesis produced five replication flags, all of which passed:
+
+\begin{verbatim}
+all_sessions_memory_gain_positive = True
+all_sessions_above_shuffle = True
+orthogonality_numeric_precision = True
+top_targets_are_recruitment_and_entropy = True
+LGd_best_phi_in_each_session = True
+\end{verbatim}
+
+These flags define the first formal cross-session Neural HRSM replication pattern.
+
+\subsection{Figures}
+
+The cross-session figure outputs were:
+
+\begin{verbatim}
+cross_session_spontaneous_memory_control.png
+cross_session_region_memory_control.png
+cross_session_target_memory_heatmap.png
+cross_session_phi_by_region.png
+\end{verbatim}
+
+The figures show that the spontaneous-memory control effect survives across both sessions, LGd remains the highest-\(\Phi\) spontaneous HRSM region in both sessions, and active-unit fraction plus population entropy remain the strongest target variables.
+
+\subsection{Interpretation}
+
+This synthesis strengthens the spontaneous Neural HRSM branch substantially. The result is no longer a single-session curiosity. Two independent Allen Neuropixels sessions show the same structure: spontaneous lag history improves prediction modestly but consistently, the improvement exceeds shuffled-lag controls, and the strongest memory-sensitive variables are active-unit fraction and population entropy.
+
+The interpretation remains bounded. This does not measure consciousness. It measures retained temporal structure in neural population dynamics. The evidence now supports a specific claim: spontaneous neural activity carries non-Markovian organization that is most visible in future population recruitment and entropy.
+
+\subsection{Limitations}
+
+The synthesis currently includes only two sessions. The empirical \(p\)-values use 100 shuffled controls and are not corrected across targets or regions. The model class remains ridge regression with lags 1 and 2. The analysis should therefore be described as a replicated early result, not a final general neural law.
+
+\subsection{Conclusion}
+
+The cross-session spontaneous synthesis establishes the first replicated real-data Neural HRSM memory result. LGd repeatedly occupies the strongest spontaneous HRSM potential state, while active-unit fraction and population entropy repeatedly emerge as the most memory-sensitive prediction targets.
+
+\subsection{Next Step}
+
+The next step is a third-session replication using the same spontaneous-focused pipeline without changing the analysis logic. Recommended candidate sessions are \texttt{750749662}, \texttt{751348571}, or \texttt{756029989}. A third session is needed before manuscript extraction.
