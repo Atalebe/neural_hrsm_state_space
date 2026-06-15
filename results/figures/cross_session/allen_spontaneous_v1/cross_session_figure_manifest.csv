@@ -1,0 +1,5 @@
+figure,description,source
+cross_session_spontaneous_memory_control.png,Session-level median observed-minus-shuffled memory gain for spontaneous activity.,cross_session_spontaneous_session_summary.csv
+cross_session_region_memory_control.png,Region-level observed-minus-shuffled memory gain across spontaneous-focused sessions.,cross_session_spontaneous_region_memory_summary.csv
+cross_session_target_memory_heatmap.png,Target-level controlled memory strength across sessions.,cross_session_spontaneous_target_by_session.csv
+cross_session_phi_by_region.png,Spontaneous HRSM Phi_neural by region across sessions.,cross_session_spontaneous_region_memory_summary.csv
