@@ -1,0 +1,2 @@
+n_ok_groups,median_observed_gain,mean_observed_gain,fraction_observed_positive,median_shuffle_gain_mean,mean_shuffle_gain_mean,median_observed_minus_shuffle,mean_observed_minus_shuffle,fraction_observed_above_shuffle_mean,median_empirical_p
+4,0.030389591166549768,0.027333917540048575,0.75,-0.0034186369551086546,-0.003335647201350667,0.033281570807559197,0.030669564741399244,1.0,0.009900990099009901
