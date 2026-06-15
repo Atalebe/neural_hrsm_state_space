@@ -1,0 +1,14 @@
+.PHONY: paper clean-paper
+
+paper:
+	./run_paper_pipeline.sh
+
+clean-paper:
+	rm -f neural_hrsm_spontaneous_memory.aux \
+	      neural_hrsm_spontaneous_memory.bbl \
+	      neural_hrsm_spontaneous_memory.blg \
+	      neural_hrsm_spontaneous_memory.log \
+	      neural_hrsm_spontaneous_memory.out \
+	      neural_hrsm_spontaneous_memory.fls \
+	      neural_hrsm_spontaneous_memory.fdb_latexmk \
+	      neural_hrsm_spontaneous_memory.pdf

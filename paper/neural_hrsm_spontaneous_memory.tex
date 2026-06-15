@@ -167,6 +167,8 @@ To distinguish aligned historical contribution from distributional lag-feature e
 \]
 This statistic is the primary memory quantity in the manuscript.
 
+The shuffled-lag baseline is stricter than a simple uncontrolled lagged-model comparison because it preserves the marginal distribution of each lag component while disrupting its chronological alignment with the target. This control reduces the risk that apparent memory gain is driven only by target dispersion, static variance, or generic model inflation. A positive \(\Delta R^2_{\rm controlled}\) therefore indicates that the aligned recent past carries predictive structure beyond a temporally disrupted lag history.
+
 \section{Results}
 
 \subsection{Spontaneous HRSM states are reproducibly projected across sessions}
@@ -359,6 +361,10 @@ The target-level result is the conceptual center of the study. Active-unit fract
 The variance-scaling audit is a necessary constraint. Active-unit fraction remains the strongest raw controlled target, but it does not remain in the top two after residualizing variance and lag-1 autocorrelation. Entropy remains more stable under this audit. The manuscript therefore should not claim that recruitment memory is variance-independent. A more accurate statement is that recruitment and entropy dominate the raw controlled-memory ranking, while entropy is the cleaner target under variance/autocorrelation adjustment.
 
 The lag-ablation audit provides stronger support for historical structure. Active-unit fraction and entropy remain positive across lag sets, and controlled gains increase as additional recent lags are included. This supports the operational non-Markovian interpretation: recent aligned history carries information about future population organization beyond shuffled-history controls.
+
+The lag-ablation curves suggest that the memory contribution is not exhausted by the nearest previous bin. Instead of a purely first-order pattern in which lag 1 captures nearly all predictive leverage, controlled memory generally increases as additional recent lags are included. For active-unit recruitment, the cross-session median controlled gain rises from approximately \(0.046\) under lag 1 to \(0.087\) under lags \(1\)--\(4\). This supports an operational interpretation in which spontaneous population history is distributed across a short recent temporal window rather than being reducible to a single immediately preceding state.
+
+Population-state speed remains the weakest target across the main target synthesis and the lag-ablation audit. This weak support is informative. State speed is a derivative-like quantity describing how rapidly the population state moves, whereas the present memory model uses recent population-position features. The result is therefore consistent with the interpretation that the retained-history signal is primarily structural and organizational, not kinetic. A stronger test of velocity or acceleration memory would require models that explicitly include velocity-like or acceleration-like predictors rather than position-lag predictors alone.
 
 The descriptive ripeness index should also be read cautiously. It is not a new biological law and not a consciousness measure. It is a state-ranking tool that combines structural HRSM position with controlled organizational memory. Its main value is conceptual: it separates structural potential from memory-carrying organization. LGd can be high-\(\Phi\) without being the ripest memory-bearing state, while CA1 and VISl can rise when organizational memory is included.
 
