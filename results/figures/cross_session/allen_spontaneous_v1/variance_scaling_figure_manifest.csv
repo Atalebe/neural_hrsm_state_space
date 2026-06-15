@@ -1,0 +1,3 @@
+figure,description,source
+cross_session_variance_scaling_gain_vs_variance.png,"Controlled memory gain plotted against target variance across sessions, regions, and targets.",variance_scaling_group_metrics.csv
+cross_session_variance_residual_target_rank.png,Target controlled-memory ranking before and after residualizing variance and lag-1 autocorrelation.,variance_scaling_target_residual_summary.csv

@@ -1,0 +1,3 @@
+test,passed,detail
+lag12_top_two_are_recruitment_and_entropy,True,"lag12 top two targets: ['active_unit_fraction', 'population_rate_entropy']"
+recruitment_entropy_positive_all_lagsets,True,Active-unit fraction and entropy have positive median controlled gain across all tested lag sets.

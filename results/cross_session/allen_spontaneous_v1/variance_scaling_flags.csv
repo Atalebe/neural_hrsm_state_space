@@ -1,0 +1,4 @@
+test,passed,detail
+top_two_raw_are_recruitment_and_entropy,True,"Top two raw controlled targets: ['active_unit_fraction', 'population_rate_entropy']"
+top_two_residual_are_recruitment_and_entropy,False,"Top two variance/autocorr residual targets: ['population_l2_rate_norm', 'population_rate_entropy']"
+overall_variance_correlation_not_extreme,True,"Overall Spearman(target_var, controlled_gain) = -0.5594571998199241"
