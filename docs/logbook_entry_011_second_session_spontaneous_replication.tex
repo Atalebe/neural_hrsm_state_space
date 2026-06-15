@@ -1,0 +1,128 @@
+\section{Logbook Entry 011: Second-Session Spontaneous Real Allen Replication}
+\label{sec:logbook-entry-011-second-session-spontaneous-replication}
+
+\subsection{Purpose}
+
+This entry records the first independent session replication of the spontaneous-focused Neural HRSM memory result. The previous spontaneous-focused run used Allen Neuropixels session \texttt{715093703}. This replication used session \texttt{719161530}, with the same low-memory HDF5 extraction logic and the same analysis sequence.
+
+\subsection{Dataset and Extraction}
+
+The cached NWB file for session \texttt{719161530} was probed successfully using direct HDF5 access. The file size was approximately 3.071 GB. The NWB contained the expected unit table, spike-time arrays, spike-time index arrays, electrode metadata, and spontaneous presentation intervals.
+
+The spontaneous extraction used:
+
+\begin{verbatim}
+regions: VISp VISl LGd CA1
+stimulus family: spontaneous
+bin size: 0.25 seconds
+max units per region: 20
+max presentations: 15
+max duration per presentation: 60 seconds
+\end{verbatim}
+
+The extraction produced 169,280 binned spike rows, 80 selected units, and 15 spontaneous presentations.
+
+\subsection{Population-State Matrix}
+
+The binned spike table was converted into a population-state matrix with 8,464 rows. Each region contributed 2,116 population-state rows.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Region & Mean population rate & Mean active fraction & Mean state speed \\
+\hline
+CA1 & 5.281474 & 0.350922 & 15.257530 \\
+LGd & 15.290643 & 0.844612 & 15.555908 \\
+VISl & 3.908129 & 0.403237 & 10.630220 \\
+VISp & 4.233743 & 0.462547 & 7.490301 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{HRSM Projection}
+
+The HRSM projection produced 8,464 bin-level rows and 4 region-level spontaneous summary rows. The orthogonality audit produced:
+
+\begin{verbatim}
+max_abs_offdiag_corr_orthogonalized = 4.175386477242158e-15
+\end{verbatim}
+
+The strongest HRSM state was LGd spontaneous:
+
+\begin{verbatim}
+H = 2.310243
+R = 0.392265
+S = 0.076656
+M = 0.303314
+Phi_neural = 0.702594
+hrsm_domain = high_high_mid_high
+\end{verbatim}
+
+This replicates the previous session's pattern in which LGd occupies the strongest balanced spontaneous HRSM state.
+
+\subsection{Mean-Rate Memory Audit}
+
+The mean-rate memory-kernel audit showed positive memory gain in all four regions:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Region & Baseline \(R^2\) & Memory \(R^2\) & Gain \(\Delta R^2\) \\
+\hline
+CA1 & 0.153113 & 0.185577 & 0.032464 \\
+LGd & 0.618512 & 0.662910 & 0.044398 \\
+VISl & 0.315426 & 0.327423 & 0.011997 \\
+VISp & 0.421927 & 0.464548 & 0.042622 \\
+\hline
+\end{tabular}
+\end{center}
+
+The pooled summary was:
+
+\begin{verbatim}
+median_memory_gain_r2 = 0.0375428265
+mean_memory_gain_r2 = 0.0328700794
+fraction_positive_gain = 1.0
+\end{verbatim}
+
+\subsection{Shuffled-Lag Negative Control}
+
+The shuffled-lag control also replicated. All four regions exceeded their shuffled-lag nulls:
+
+\begin{verbatim}
+median_observed_minus_shuffle = 0.0413676906
+mean_observed_minus_shuffle = 0.0362216833
+fraction_observed_above_shuffle_mean = 1.0
+median_empirical_p = 0.0099009901
+\end{verbatim}
+
+\subsection{Target-Variable Sweep}
+
+The target-variable sweep replicated the same target hierarchy observed in session \texttt{715093703}. The strongest controlled memory target was active-unit fraction, followed by population entropy.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Target & Median observed gain & Median observed minus shuffled & Rank \\
+\hline
+active\_unit\_fraction & 0.062644 & 0.066169 & 1 \\
+population\_rate\_entropy & 0.059034 & 0.062511 & 2 \\
+population\_mean\_rate\_hz & 0.037543 & 0.041385 & 3 \\
+population\_l2\_rate\_norm & 0.033038 & 0.036627 & 4 \\
+population\_std\_rate\_hz & 0.024394 & 0.028737 & 5 \\
+population\_state\_speed & 0.007906 & 0.012882 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+Unlike the first spontaneous-focused session, population-state speed was weakly positive in this session, but it remained the weakest target.
+
+\subsection{Interpretation}
+
+The second-session run replicates the central spontaneous-memory result. The memory gain is modest in absolute \(R^2\), but it is positive in all four regions, survives shuffled-lag controls in all four regions, and preserves the target hierarchy in which active-unit recruitment and population entropy are more memory-sensitive than state speed.
+
+This strengthens the Neural HRSM interpretation. The retained-history signal appears to reflect population recruitment and organization rather than generic firing-rate elevation or simple state-motion velocity.
+
+\subsection{Conclusion}
+
+Session \texttt{719161530} independently supports the spontaneous-focused Neural HRSM memory result first observed in session \texttt{715093703}. The result now requires a cross-session synthesis table and figure, followed by a third-session replication before manuscript extraction.
