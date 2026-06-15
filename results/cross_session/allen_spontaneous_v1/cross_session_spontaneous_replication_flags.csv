@@ -1,6 +1,6 @@
 test,passed,detail
-all_sessions_memory_gain_positive,True,Every session has positive mean-rate memory gain in all spontaneous regions.
+all_sessions_memory_gain_positive,False,Every session has positive mean-rate memory gain in all spontaneous regions.
 all_sessions_above_shuffle,True,Every session has observed memory gain above shuffled-lag mean in all spontaneous regions.
 orthogonality_numeric_precision,True,All sessions have orthogonalized HRSM axes decorrelated to numerical precision.
 top_targets_are_recruitment_and_entropy,True,The top two cross-session targets are active-unit fraction and population-rate entropy.
-LGd_best_phi_in_each_session,True,LGd has the highest Phi_neural among spontaneous regions in each session.
+LGd_best_phi_in_each_session,False,LGd has the highest Phi_neural among spontaneous regions in each session.
