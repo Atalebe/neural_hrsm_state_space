@@ -1,0 +1,271 @@
+\section{Logbook Entry 014: Variance Scaling, Lag Ablation, and Descriptive Ripeness in Spontaneous Allen Neural HRSM}
+\label{sec:logbook-entry-014-variance-ablation-ripeness}
+
+\subsection{Purpose}
+
+This entry records the pre-manuscript robustness batch for the spontaneous-focused real Allen Neural HRSM branch. After three independent Allen Neuropixels sessions had been processed, the next question was whether the apparent non-Markovian memory signal survived standard sanity checks.
+
+Three checks were performed:
+
+\begin{enumerate}
+    \item a variance-scaling audit, asking whether controlled memory gain merely tracks target variance, dispersion, or lag-1 autocorrelation;
+    \item a lag-ablation grid, asking whether the result depends narrowly on the chosen lag pair \((1,2)\);
+    \item a descriptive spontaneous neural ripeness index, asking whether session-region states can be ranked by combined HRSM state potential and controlled organizational memory.
+\end{enumerate}
+
+These analyses used the three spontaneous-focused Allen sessions:
+
+\begin{verbatim}
+715093703
+719161530
+750749662
+\end{verbatim}
+
+Each session used the same spontaneous-focused extraction scale: 20 units per region, 15 spontaneous presentations, 0.25 second bins, and four regions: VISp, VISl, LGd, and CA1.
+
+\subsection{Updated Cross-Session Synthesis}
+
+Before the robustness tests, the cross-session synthesis was updated to include all three sessions using:
+
+\begin{verbatim}
+scripts/allen/16_cross_session_spontaneous_synthesis.py
+\end{verbatim}
+
+The three-session synthesis showed that all sessions retained numerical HRSM axis separation:
+
+\begin{verbatim}
+715093703 max_abs_offdiag_corr = 3.994795e-15
+719161530 max_abs_offdiag_corr = 4.175386e-15
+750749662 max_abs_offdiag_corr = 6.142750e-15
+\end{verbatim}
+
+The session-level summary showed a qualified replication. The first two sessions had positive raw mean-rate memory gain in all four regions, while the third session had one slightly negative raw VISp mean-rate gain. However, all three sessions retained positive observed-minus-shuffled controlled memory at the session level:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Session & Median memory gain & Mean memory gain & Fraction positive gain & Median observed minus shuffled \\
+\hline
+715093703 & 0.035902 & 0.040904 & 1.00 & 0.039595 \\
+719161530 & 0.037543 & 0.032870 & 1.00 & 0.041368 \\
+750749662 & 0.030390 & 0.027334 & 0.75 & 0.033282 \\
+\hline
+\end{tabular}
+\end{center}
+
+The three-session replication flags were:
+
+\begin{verbatim}
+all_sessions_memory_gain_positive = False
+all_sessions_above_shuffle = True
+orthogonality_numeric_precision = True
+top_targets_are_recruitment_and_entropy = True
+LGd_best_phi_in_each_session = False
+\end{verbatim}
+
+This means the broadest raw-memory and LGd-dominance claims do not survive unchanged. The stronger controlled-memory claim does survive: observed aligned-history models exceed shuffled-lag controls across sessions, and the top memory-sensitive targets remain active-unit fraction and population entropy.
+
+\subsection{Variance-Scaling Audit}
+
+The variance-scaling audit was run using:
+
+\begin{verbatim}
+scripts/allen/17_cross_session_variance_scaling_audit.py
+\end{verbatim}
+
+The purpose was to test whether the controlled memory signal was simply a consequence of target variance, target dispersion, or lag-1 autocorrelation. The script joined each session's population-state matrix with the target-level memory sweep and computed target mean, variance, standard deviation, interquartile range, coefficient of variation, and lag-1 autocorrelation.
+
+The raw controlled-memory ranking remained:
+
+\begin{center}
+\begin{tabular}{lrr}
+\hline
+Target & Median observed minus shuffled & Raw rank \\
+\hline
+active\_unit\_fraction & 0.063814 & 1 \\
+population\_rate\_entropy & 0.062511 & 2 \\
+population\_mean\_rate\_hz & 0.036210 & 3 \\
+population\_std\_rate\_hz & 0.033441 & 4 \\
+population\_l2\_rate\_norm & 0.033028 & 5 \\
+population\_state\_speed & 0.012205 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+After residualizing target variance, lag-1 autocorrelation, and row count, the ranking changed:
+
+\begin{center}
+\begin{tabular}{lrr}
+\hline
+Target & Median residual gain & Residual rank \\
+\hline
+population\_l2\_rate\_norm & 0.011099 & 1 \\
+population\_rate\_entropy & 0.007370 & 2 \\
+active\_unit\_fraction & 0.001711 & 3 \\
+population\_state\_speed & -0.002276 & 4 \\
+population\_mean\_rate\_hz & -0.009043 & 5 \\
+population\_std\_rate\_hz & -0.009630 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+The variance-scaling flags were:
+
+\begin{verbatim}
+top_two_raw_are_recruitment_and_entropy = True
+top_two_residual_are_recruitment_and_entropy = False
+overall_variance_correlation_not_extreme = True
+\end{verbatim}
+
+The overall Spearman correlation between target variance and controlled gain was:
+
+\begin{verbatim}
+Spearman(target_var, controlled_gain) = -0.5594571998199241
+\end{verbatim}
+
+\subsection{Interpretation of Variance Scaling}
+
+The variance-scaling result is a partial constraint, not a collapse. The raw controlled-memory signal remains strongest for active-unit fraction and entropy. However, after residualization, active-unit fraction no longer remains in the top two; population L2 rate norm rises to first, and entropy remains second.
+
+The correct interpretation is therefore narrower: the recruitment-memory effect is partly entangled with variance and autocorrelation structure, while the entropy-memory effect is more robust under this residualization. The manuscript should not claim that active-unit recruitment is fully independent of variance structure. It should instead state that active-unit fraction and entropy are the strongest raw controlled targets, with entropy surviving variance/autocorrelation residualization more cleanly.
+
+\subsection{Lag-Ablation Grid}
+
+The lag-ablation grid was run using:
+
+\begin{verbatim}
+scripts/allen/18_spontaneous_memory_lag_ablation_grid.py
+\end{verbatim}
+
+The tested lag sets were:
+
+\begin{verbatim}
+lag1      = [1]
+lag2      = [2]
+lag12     = [1, 2]
+lag123    = [1, 2, 3]
+lag1234   = [1, 2, 3, 4]
+\end{verbatim}
+
+The ablation used 50 shuffled controls per group as a screening run.
+
+The cross-session lag-ablation summary showed that active-unit fraction and population entropy remained the top two controlled-memory targets under the canonical lag pair \((1,2)\). More importantly, both remained positive across all tested lag sets:
+
+\begin{center}
+\begin{tabular}{lrrrrr}
+\hline
+Target & lag1 & lag2 & lag12 & lag123 & lag1234 \\
+\hline
+active\_unit\_fraction & 0.046499 & 0.046029 & 0.066097 & 0.076122 & 0.087106 \\
+population\_rate\_entropy & 0.039511 & 0.048006 & 0.064305 & 0.077218 & 0.081646 \\
+population\_mean\_rate\_hz & 0.030403 & 0.027874 & 0.039064 & 0.046647 & 0.050860 \\
+population\_state\_speed & 0.004257 & 0.012048 & 0.012949 & 0.012580 & 0.012323 \\
+\hline
+\end{tabular}
+\end{center}
+
+The lag-ablation flags were:
+
+\begin{verbatim}
+lag12_top_two_are_recruitment_and_entropy = True
+recruitment_entropy_positive_all_lagsets = True
+\end{verbatim}
+
+\subsection{Interpretation of Lag Ablation}
+
+The lag-ablation result is stronger than the variance-scaling result. The controlled-memory signal does not depend narrowly on choosing lags 1 and 2. Active-unit fraction and population entropy remain positive across lag sets, and their controlled gains increase as additional recent history is added.
+
+This supports the interpretation that the spontaneous neural memory effect is genuinely historical in the operational sense used here: recent past population structure improves prediction relative to shuffled-lag controls.
+
+\subsection{Descriptive Neural Ripeness Index}
+
+A descriptive spontaneous neural ripeness index was then computed using:
+
+\begin{verbatim}
+scripts/allen/19_compute_spontaneous_ripeness_index.py
+\end{verbatim}
+
+This index was defined as descriptive, not inferential. It combines rank-normalized components:
+
+\begin{enumerate}
+    \item \(\Phi_{\rm neural}\),
+    \item HRSM stability coordinate \(S\),
+    \item controlled mean-rate memory,
+    \item active-unit recruitment memory,
+    \item entropy memory.
+\end{enumerate}
+
+Penalties were applied for negative raw mean-rate memory gain or nonpositive controlled mean-rate memory gain.
+
+The highest-ranked session-region state was:
+
+\begin{verbatim}
+715093703 / VISl
+ripeness_score = 0.777083
+ripeness_class = high
+ripeness_mode = memory_carrier_low_phi
+\end{verbatim}
+
+The next strongest states were:
+
+\begin{verbatim}
+715093703 / CA1        ripeness_score = 0.643750
+750749662 / CA1        ripeness_score = 0.633333
+719161530 / VISp       ripeness_score = 0.622917
+750749662 / VISl       ripeness_score = 0.591667
+719161530 / LGd        ripeness_score = 0.554167
+\end{verbatim}
+
+The region-level median ripeness ranking was:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Region & Median ripeness & Mean ripeness & Median \(\Phi\) & Region rank \\
+\hline
+CA1 & 0.633333 & 0.581250 & -0.113984 & 1 \\
+VISl & 0.591667 & 0.634028 & -0.067570 & 2 \\
+LGd & 0.477083 & 0.485417 & 0.408474 & 3 \\
+VISp & 0.381250 & 0.449306 & 0.131802 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+The ripeness flags were:
+
+\begin{verbatim}
+all_ripeness_scores_finite = True
+top_state_has_positive_controlled_memory = True
+top_region_not_forced_to_LGd = True
+organizational_memory_positive_in_top_half = True
+\end{verbatim}
+
+\subsection{Interpretation of Ripeness}
+
+The ripeness index is sane because it does not merely reproduce \(\Phi_{\rm neural}\) or force LGd to the top. Instead, it distinguishes structural state strength from organizational memory carrying capacity.
+
+LGd remains important as a high-\(\Phi\) structural state, but it is not the highest ripeness region once controlled memory and organizational recruitment are included. CA1 and VISl become the top median-ripeness regions because they combine strong controlled organizational memory with moderate or transitional HRSM structure. This reinforces the distinction between state potential and memory-carrying dynamics.
+
+The phrase \emph{ripeness} should therefore be used carefully. It does not mean consciousness, cognition, or readiness for awareness. In this branch it means a session-region state with sufficient HRSM organization and controlled historical predictability to function as a candidate memory-bearing neural state.
+
+\subsection{Overall Conclusion}
+
+The pre-manuscript robustness batch supports a refined conclusion.
+
+The original broad statement would have been too strong: spontaneous neural memory is not uniformly positive in every raw target and region, LGd is not always the highest-\(\Phi\) state, and active-unit recruitment is not fully independent of target variance and autocorrelation.
+
+The stronger statement survives:
+
+\begin{quote}
+Across three spontaneous-focused Allen Neuropixels sessions, aligned recent history improves prediction relative to shuffled-lag controls. The most stable raw controlled targets are active-unit fraction and population entropy. Entropy survives variance/autocorrelation residualization more cleanly than active-unit fraction, and both targets remain positive across lag-ablation tests. Descriptive ripeness ranks CA1 and VISl above LGd when controlled organizational memory is included, separating structural HRSM potential from memory-bearing dynamics.
+\end{quote}
+
+\subsection{Next Step}
+
+The next step is manuscript extraction. The results section should be built around three claims:
+
+\begin{enumerate}
+    \item spontaneous neural HRSM states can be projected reproducibly across Allen sessions with orthogonalized H, R, S, and M axes;
+    \item non-Markovian memory is supported relative to shuffled-lag controls, especially for population entropy and active-unit recruitment;
+    \item robustness tests narrow the claim: entropy is the most stable organizational-memory target after variance/autocorrelation residualization, while ripeness is descriptive and separates structural potential from memory-carrying dynamics.
+\end{enumerate}
