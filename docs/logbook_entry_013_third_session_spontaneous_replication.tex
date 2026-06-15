@@ -1,0 +1,189 @@
+\section{Logbook Entry 013: Third-Session Spontaneous Allen Replication and Revised Cross-Session Synthesis}
+\label{sec:logbook-entry-013-third-session-spontaneous-replication}
+
+\subsection{Purpose}
+
+This entry records the third spontaneous-focused real Allen Neuropixels Neural HRSM replication. The tested session was \texttt{750749662}. The purpose was to determine whether the spontaneous-memory structure observed in sessions \texttt{715093703} and \texttt{719161530} survives in a third independent session under unchanged analysis logic.
+
+\subsection{Extraction}
+
+The cached NWB file for session \texttt{750749662} was downloaded directly and probed through low-memory HDF5 access. The NWB file size was approximately 2.818 GB. The spontaneous-focused extraction used the same settings as the previous spontaneous runs:
+
+\begin{verbatim}
+regions: VISp VISl LGd CA1
+stimulus family: spontaneous
+bin size: 0.25 seconds
+max units per region: 20
+max presentations: 15
+max duration per presentation: 60 seconds
+\end{verbatim}
+
+The extraction produced 169,280 binned spike rows, 80 selected units, and 15 spontaneous presentations.
+
+\subsection{Population-State Matrix}
+
+The binned spike table was converted into a population-state matrix with 8,464 rows. Each region contributed 2,116 population-state rows.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Region & Mean population rate & Mean active fraction & Mean state speed \\
+\hline
+CA1 & 9.960586 & 0.596361 & 16.559007 \\
+LGd & 7.212004 & 0.525851 & 13.393815 \\
+VISl & 2.251607 & 0.273606 & 8.092152 \\
+VISp & 3.096408 & 0.279182 & 11.479002 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{HRSM Projection}
+
+The HRSM projection produced 8,464 bin-level rows and 4 spontaneous region-level summary rows. The orthogonality audit produced:
+
+\begin{verbatim}
+max_abs_offdiag_corr_orthogonalized = 6.142749801524271e-15
+\end{verbatim}
+
+The strongest \(\Phi_{\rm neural}\) state was CA1 spontaneous:
+
+\begin{verbatim}
+CA1:
+H = 1.219571
+R = 0.386064
+S = 0.069783
+M = 0.245212
+Phi_neural = 0.417804
+hrsm_domain = high_mid_low_high
+\end{verbatim}
+
+LGd remained a strong HRSM state, but it was not the highest-\(\Phi\) region in this session:
+
+\begin{verbatim}
+LGd:
+H = 0.718528
+R = 0.386819
+S = 0.097046
+M = 0.115538
+Phi_neural = 0.237284
+hrsm_domain = high_high_high_high
+\end{verbatim}
+
+This revises the earlier pattern. LGd is not universally the strongest spontaneous \(\Phi\) region across all sessions.
+
+\subsection{Mean-Rate Memory Audit}
+
+The mean-rate memory audit showed positive memory gain in three of four regions:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Region & Baseline \(R^2\) & Memory \(R^2\) & Gain \(\Delta R^2\) \\
+\hline
+CA1 & 0.423216 & 0.473118 & 0.049902 \\
+LGd & 0.679432 & 0.713295 & 0.033863 \\
+VISl & 0.141471 & 0.168387 & 0.026916 \\
+VISp & 0.094868 & 0.093522 & -0.001346 \\
+\hline
+\end{tabular}
+\end{center}
+
+The pooled result was:
+
+\begin{verbatim}
+median_memory_gain_r2 = 0.030390
+mean_memory_gain_r2 = 0.027334
+fraction_positive_gain = 0.75
+\end{verbatim}
+
+This means the earlier claim that all spontaneous regions show positive raw mean-rate gain does not hold in the third session. VISp is the exception.
+
+\subsection{Shuffled-Lag Negative Control}
+
+The shuffled-lag negative control remained positive across all four regions. Even the VISp region, whose raw memory gain was slightly negative, still exceeded its shuffled-lag null.
+
+\begin{verbatim}
+median_observed_minus_shuffle = 0.033282
+mean_observed_minus_shuffle = 0.030670
+fraction_observed_above_shuffle_mean = 1.0
+median_empirical_p = 0.009901
+\end{verbatim}
+
+This preserves the stronger interpretation: aligned lag history carries predictive structure relative to shuffled lag history.
+
+\subsection{Target-Variable Sweep}
+
+The third-session target sweep ranked the targets as follows:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Target & Median observed gain & Median observed minus shuffled & Rank \\
+\hline
+population\_rate\_entropy & 0.060345 & 0.064422 & 1 \\
+active\_unit\_fraction & 0.045281 & 0.048155 & 2 \\
+population\_mean\_rate\_hz & 0.030390 & 0.033223 & 3 \\
+population\_state\_speed & 0.017468 & 0.021670 & 4 \\
+population\_l2\_rate\_norm & 0.017716 & 0.021043 & 5 \\
+population\_std\_rate\_hz & 0.015661 & 0.019192 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+Unlike the previous two sessions, population entropy ranked first and active-unit fraction ranked second. However, the cross-session conclusion is unchanged: the top memory-sensitive targets are active-unit recruitment and population entropy.
+
+\subsection{Updated Cross-Session Synthesis}
+
+After including session \texttt{750749662}, the cross-session synthesis now contains three spontaneous-focused sessions:
+
+\begin{verbatim}
+715093703
+719161530
+750749662
+\end{verbatim}
+
+The target synthesis across all three sessions ranked the targets as:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Target & Sessions & Median observed minus shuffled & Cross-session rank \\
+\hline
+active\_unit\_fraction & 3 & 0.066169 & 1 \\
+population\_rate\_entropy & 3 & 0.064422 & 2 \\
+population\_mean\_rate\_hz & 3 & 0.039490 & 3 \\
+population\_l2\_rate\_norm & 3 & 0.036627 & 4 \\
+population\_std\_rate\_hz & 3 & 0.028737 & 5 \\
+population\_state\_speed & 3 & 0.012882 & 6 \\
+\hline
+\end{tabular}
+\end{center}
+
+The updated replication flags were:
+
+\begin{verbatim}
+all_sessions_memory_gain_positive = False
+all_sessions_above_shuffle = True
+orthogonality_numeric_precision = True
+top_targets_are_recruitment_and_entropy = True
+LGd_best_phi_in_each_session = False
+\end{verbatim}
+
+\subsection{Interpretation}
+
+The third session refines the result. It does not fully preserve every simple pattern from the first two sessions. LGd is not always the highest-\(\Phi\) spontaneous region, and raw mean-rate memory gain is not positive in every region. However, the stronger and more important findings survive:
+
+\begin{enumerate}
+    \item HRSM axes remain orthogonalized to numerical precision.
+    \item Observed memory gain exceeds shuffled-lag control in all spontaneous regions.
+    \item Active-unit fraction and population entropy remain the top cross-session memory targets.
+    \item The memory signal is better interpreted as retained population organization and recruitment than as generic firing-rate increase.
+\end{enumerate}
+
+\subsection{Conclusion}
+
+Session \texttt{750749662} provides a qualified third-session replication. It weakens the broadest raw-memory and LGd-\(\Phi\) claims, but it strengthens the more precise controlled-memory claim. Across three sessions, spontaneous neural history consistently carries predictive structure relative to shuffled lag history, and the strongest cross-session targets are active-unit recruitment and population entropy.
+
+\subsection{Next Step}
+
+The next step is not another immediate extraction. The next step is to update the cross-session figures and write a manuscript-facing results skeleton. The current result is now strong enough for structured paper extraction, with the caveat that it remains an early three-session Allen branch.
