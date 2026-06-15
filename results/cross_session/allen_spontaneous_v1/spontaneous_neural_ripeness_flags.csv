@@ -1,0 +1,5 @@
+test,passed,detail
+all_ripeness_scores_finite,True,Every session-region state received a finite ripeness score.
+top_state_has_positive_controlled_memory,True,Top state is 715093703 VISl.
+top_region_not_forced_to_LGd,True,Top median-ripeness region is CA1.
+organizational_memory_positive_in_top_half,True,All top-half ripeness states have positive organizational-memory gain.
