@@ -102,7 +102,7 @@ def session_summary_table():
     for _, r in df.iterrows():
         rows.append(
             [
-                str(r["session_id"]),
+                str(int(float(r["session_id"]))),
                 esc(r["best_phi_region"]),
                 fmt(r["best_phi_value"], 3),
                 fmt(r["median_observed_minus_shuffle"], 3),
@@ -304,7 +304,7 @@ def axis_audit_table():
     for _, r in df.iterrows():
         rows.append(
             [
-                str(r["session_id"]),
+                str(int(float(r["session_id"]))),
                 fmt(r["max_abs_corr_raw"], 3),
                 fmt(r["mean_abs_corr_raw"], 3),
                 f"{float(r['max_abs_corr_orthogonalized']):.2e}",

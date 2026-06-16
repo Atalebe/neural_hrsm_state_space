@@ -44,7 +44,7 @@ TEX = r"""\documentclass[11pt]{article}
 A Six-Session HRSM State-Space Analysis of Allen Neuropixels Data}
 
 \author{Stephen Atalebe\\
-\emph{Affiliation to be confirmed}}
+\emph{Masaryk University, Brno, Czech Republic}}
 
 \date{\today}
 
