@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software or reproducibility snapshot, please cite it using the metadata below."
+title: "Neural HRSM State Space: Controlled Organizational Memory in Spontaneous Allen Neuropixels Dynamics"
+version: "strict-v2-manuscript-2026-06-17-v1"
+type: software
+authors:
+  - family-names: "Atalebe"
+    given-names: "Stephen"
+    affiliation: "Masaryk University, Brno, Czech Republic"
+repository-code: "https://github.com/Atalebe/neural_hrsm_state_space"
+abstract: "Code, analysis scripts, derived summaries, figures, and manuscript build pipeline for a six-session HRSM state-space analysis of controlled organizational memory in spontaneous Allen Visual Coding Neuropixels population dynamics."
+keywords:
+  - neural population dynamics
+  - Neuropixels
+  - Allen Brain Observatory
+  - spontaneous neural activity
+  - non-Markovian dynamics
+  - HRSM
+  - entropy
+  - active-unit recruitment
+license: MIT
+date-released: 2026-06-17

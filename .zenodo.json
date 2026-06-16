@@ -1,0 +1,36 @@
+{
+  "title": "Neural HRSM State Space: Controlled Organizational Memory in Spontaneous Allen Neuropixels Dynamics",
+  "upload_type": "software",
+  "description": "Code, analysis scripts, derived summaries, figures, and manuscript build pipeline for a six-session HRSM state-space analysis of controlled organizational memory in spontaneous Allen Visual Coding Neuropixels population dynamics. The archived release corresponds to the strict-v2 manuscript snapshot and includes scripts for HDF5-based Allen NWB extraction, HRSM proxy construction, shuffled-lag memory controls, variance/autocorrelation residualization, lag-ablation audits, ripeness summaries, and manuscript compilation.",
+  "creators": [
+    {
+      "name": "Atalebe, Stephen",
+      "affiliation": "Masaryk University, Brno, Czech Republic",
+      "type": "ProjectLeader"
+    }
+  ],
+  "version": "strict-v2-manuscript-2026-06-17-v1",
+  "access_right": "open",
+  "license": "mit",
+  "language": "eng",
+  "keywords": [
+    "neural population dynamics",
+    "Neuropixels",
+    "Allen Brain Observatory",
+    "spontaneous neural activity",
+    "non-Markovian dynamics",
+    "memory kernel",
+    "HRSM",
+    "state-space analysis",
+    "entropy",
+    "active-unit recruitment",
+    "reproducible research"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Atalebe/neural_hrsm_state_space",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
