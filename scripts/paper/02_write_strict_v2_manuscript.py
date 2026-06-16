@@ -336,7 +336,7 @@ No new animal data were generated. The analysis uses publicly available Allen Vi
 
 \section*{Code availability}
 
-The analysis scripts are stored under \texttt{scripts/allen/} and \texttt{scripts/paper/}. The strict-v2 outputs used in this manuscript are stored under \texttt{results/cross\_session/allen\_spontaneous\_strict\_v2/}, \texttt{results/ablation/allen\_spontaneous\_strict\_v2/}, and \texttt{results/figures/}. A frozen reproducibility tag should be generated before submission.
+The analysis scripts are stored under \texttt{scripts/allen/} and \texttt{scripts/paper/}. The strict-v2 outputs used in this manuscript are stored under \texttt{results/cross\_session/allen\_spontaneous\_strict\_v2/}, \texttt{results/ablation/allen\_spontaneous\_strict\_v2/}, and \texttt{results/figures/}. The archived strict-v2 code and reproducibility snapshot is available on Zenodo at \url{https://doi.org/10.5281/zenodo.20724425}.
 
 \section*{Ethics statement}
 
