@@ -5,14 +5,14 @@ Download one Allen Visual Coding Neuropixels session NWB without loading it.
 This avoids EcephysProjectCache.get_session_data(), which downloads and then
 tries to construct a full PyNWB session object. On this machine that path can
 trigger OOM. This script only retrieves the direct EcephysNwb download link and
-streams the NWB to the expected cache path:
+streams the NWB to:
 
 data/raw/allen_neuropixels_cache/session_<id>/session_<id>.nwb
 """
 
 from pathlib import Path
+from urllib.request import Request, urlopen
 import argparse
-import requests
 
 
 def parse_args():
@@ -78,18 +78,21 @@ def main():
         part_path.unlink()
 
     chunk_size = int(args.chunk_mb) * 1024 * 1024
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
 
-    with requests.get(url, stream=True, timeout=60) as r:
-        r.raise_for_status()
-        total = int(r.headers.get("content-length", 0))
+    with urlopen(req, timeout=60) as r:
+        total_header = r.headers.get("Content-Length") or r.headers.get("content-length")
+        total = int(total_header) if total_header else 0
         seen = 0
 
         with open(part_path, "wb") as f:
-            for chunk in r.iter_content(chunk_size=chunk_size):
+            while True:
+                chunk = r.read(chunk_size)
                 if not chunk:
-                    continue
+                    break
                 f.write(chunk)
                 seen += len(chunk)
+
                 if total:
                     pct = 100.0 * seen / total
                     print(
