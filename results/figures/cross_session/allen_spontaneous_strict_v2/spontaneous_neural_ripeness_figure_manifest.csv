@@ -1,0 +1,4 @@
+figure,description,source
+spontaneous_neural_ripeness_ranked_bar.png,Ranked descriptive ripeness score across session-region spontaneous states.,spontaneous_neural_ripeness_index.csv
+spontaneous_neural_ripeness_heatmap.png,Ripeness score by region and session.,spontaneous_neural_ripeness_index.csv
+spontaneous_neural_ripeness_phi_vs_memory.png,HRSM potential plotted against organizational-memory gain.,spontaneous_neural_ripeness_index.csv

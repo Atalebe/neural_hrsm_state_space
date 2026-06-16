@@ -1,0 +1,14 @@
+.PHONY: paper-strict-v2 clean-paper-strict-v2
+
+paper-strict-v2:
+	./run_paper_pipeline_strict_v2.sh
+
+clean-paper-strict-v2:
+	rm -f neural_hrsm_spontaneous_memory_strict_v2.aux \
+	      neural_hrsm_spontaneous_memory_strict_v2.bbl \
+	      neural_hrsm_spontaneous_memory_strict_v2.blg \
+	      neural_hrsm_spontaneous_memory_strict_v2.log \
+	      neural_hrsm_spontaneous_memory_strict_v2.out \
+	      neural_hrsm_spontaneous_memory_strict_v2.fls \
+	      neural_hrsm_spontaneous_memory_strict_v2.fdb_latexmk \
+	      neural_hrsm_spontaneous_memory_strict_v2.pdf
