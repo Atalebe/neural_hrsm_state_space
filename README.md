@@ -42,3 +42,11 @@ The starter scripts are designed to run in two modes:
 ## Scientific contract
 
 The pipeline tests neural homeostatic state dynamics, not metaphysical consciousness. Consciousness-adjacent interpretations are deferred until neural HRSM axes are stable, orthogonalised, and shown to survive negative controls.
+
+
+## Citation
+
+If you use this code or reproducibility snapshot, please cite:
+
+Atalebe, Stephen. *Neural HRSM State Space: Controlled Organizational Memory in Spontaneous Allen Neuropixels Dynamics*. Zenodo. https://doi.org/10.5281/zenodo.20724425
+
