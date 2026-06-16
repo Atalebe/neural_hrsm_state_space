@@ -1,0 +1,3 @@
+figure,description,source
+lag_ablation_controlled_memory_curves.png,Cross-session controlled memory strength across lag sets.,lag_ablation_cross_session_target_summary.csv
+lag_ablation_target_rank_heatmap.png,Target rank stability across lag ablations.,lag_ablation_cross_session_target_summary.csv
