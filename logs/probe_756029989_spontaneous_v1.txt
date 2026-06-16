@@ -1,0 +1,415 @@
+[info] opening data/raw/allen_neuropixels_cache/session_756029989/session_756029989.nwb
+[info] size_gb=2.581
+[info] top-level keys:
+  acquisition
+  analysis
+  file_create_date
+  general
+  identifier
+  intervals
+  processing
+  session_description
+  session_start_time
+  specifications
+  stimulus
+  timestamps_reference_time
+  units
+
+[info] units keys:
+  PT_ratio: shape=(2169,) dtype=float64
+  amplitude: shape=(2169,) dtype=float64
+  amplitude_cutoff: shape=(2169,) dtype=float64
+  cluster_id: shape=(2169,) dtype=int64
+  cumulative_drift: shape=(2169,) dtype=float64
+  d_prime: shape=(2169,) dtype=float64
+  firing_rate: shape=(2169,) dtype=float64
+  id: shape=(2169,) dtype=int64
+  isi_violations: shape=(2169,) dtype=float64
+  isolation_distance: shape=(2169,) dtype=float64
+  l_ratio: shape=(2169,) dtype=float64
+  local_index: shape=(2169,) dtype=int64
+  max_drift: shape=(2169,) dtype=float64
+  nn_hit_rate: shape=(2169,) dtype=float64
+  nn_miss_rate: shape=(2169,) dtype=float64
+  peak_channel_id: shape=(2169,) dtype=int64
+  presence_ratio: shape=(2169,) dtype=float64
+  quality: shape=(2169,) dtype=object
+  recovery_slope: shape=(2169,) dtype=float64
+  repolarization_slope: shape=(2169,) dtype=float64
+  silhouette_score: shape=(2169,) dtype=float64
+  snr: shape=(2169,) dtype=float64
+  spike_amplitudes: shape=(117559768,) dtype=float64
+  spike_amplitudes_index: shape=(2169,) dtype=int64
+  spike_times: shape=(117559768,) dtype=float64
+  spike_times_index: shape=(2169,) dtype=int64
+  spread: shape=(2169,) dtype=float64
+  velocity_above: shape=(2169,) dtype=float64
+  velocity_below: shape=(2169,) dtype=float64
+  waveform_duration: shape=(2169,) dtype=float64
+  waveform_halfwidth: shape=(2169,) dtype=float64
+  waveform_mean: shape=(832896, 82) dtype=float64
+  waveform_mean_index: shape=(2169,) dtype=int64
+
+[info] intervals keys:
+  drifting_gratings_presentations
+  flashes_presentations
+  gabors_presentations
+  invalid_times
+  natural_movie_one_presentations
+  natural_movie_three_presentations
+  natural_scenes_presentations
+  spontaneous_presentations
+  static_gratings_presentations
+
+[info] limited tree:
+GROUP   acquisition
+GROUP   acquisition/raw_running_wheel_rotation
+DATASET acquisition/raw_running_wheel_rotation/data shape=(550800,) dtype=float32
+DATASET acquisition/raw_running_wheel_rotation/timestamps shape=(550800,) dtype=float64
+GROUP   acquisition/running_wheel_signal_voltage
+DATASET acquisition/running_wheel_signal_voltage/data shape=(550800,) dtype=float64
+GROUP   acquisition/running_wheel_supply_voltage
+DATASET acquisition/running_wheel_supply_voltage/data shape=(550800,) dtype=float64
+GROUP   analysis
+DATASET file_create_date shape=(1,) dtype=object
+GROUP   general
+GROUP   general/devices
+GROUP   general/devices/probeA
+GROUP   general/devices/probeB
+GROUP   general/devices/probeC
+GROUP   general/devices/probeD
+GROUP   general/devices/probeE
+GROUP   general/devices/probeF
+GROUP   general/extracellular_ephys
+GROUP   general/extracellular_ephys/electrodes
+DATASET general/extracellular_ephys/electrodes/filtering shape=(2304,) dtype=object
+DATASET general/extracellular_ephys/electrodes/group shape=(2304,) dtype=object
+DATASET general/extracellular_ephys/electrodes/group_name shape=(2304,) dtype=object
+DATASET general/extracellular_ephys/electrodes/id shape=(2304,) dtype=int64
+DATASET general/extracellular_ephys/electrodes/imp shape=(2304,) dtype=float64
+DATASET general/extracellular_ephys/electrodes/local_index shape=(2304,) dtype=int64
+DATASET general/extracellular_ephys/electrodes/location shape=(2304,) dtype=object
+DATASET general/extracellular_ephys/electrodes/probe_horizontal_position shape=(2304,) dtype=int64
+DATASET general/extracellular_ephys/electrodes/probe_id shape=(2304,) dtype=int64
+DATASET general/extracellular_ephys/electrodes/probe_vertical_position shape=(2304,) dtype=int64
+DATASET general/extracellular_ephys/electrodes/valid_data shape=(2304,) dtype=bool
+DATASET general/extracellular_ephys/electrodes/x shape=(2304,) dtype=float64
+DATASET general/extracellular_ephys/electrodes/y shape=(2304,) dtype=float64
+DATASET general/extracellular_ephys/electrodes/z shape=(2304,) dtype=float64
+GROUP   general/extracellular_ephys/probeA
+GROUP   general/extracellular_ephys/probeB
+GROUP   general/extracellular_ephys/probeC
+GROUP   general/extracellular_ephys/probeD
+GROUP   general/extracellular_ephys/probeE
+GROUP   general/extracellular_ephys/probeF
+DATASET general/institution shape=() dtype=object
+DATASET general/session_id shape=() dtype=object
+DATASET general/stimulus shape=() dtype=object
+GROUP   general/subject
+DATASET general/subject/age shape=() dtype=object
+DATASET general/subject/genotype shape=() dtype=object
+DATASET general/subject/sex shape=() dtype=object
+DATASET general/subject/species shape=() dtype=object
+DATASET general/subject/subject_id shape=() dtype=object
+DATASET identifier shape=() dtype=object
+GROUP   intervals
+GROUP   intervals/drifting_gratings_presentations
+DATASET intervals/drifting_gratings_presentations/color shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/contrast shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/id shape=(630,) dtype=int64
+DATASET intervals/drifting_gratings_presentations/mask shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/opacity shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/orientation shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/phase shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/size shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/spatial_frequency shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/start_time shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/stimulus_block shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/stimulus_index shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/stimulus_name shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/stop_time shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/tags shape=(630,) dtype=object
+DATASET intervals/drifting_gratings_presentations/tags_index shape=(630,) dtype=int64
+DATASET intervals/drifting_gratings_presentations/temporal_frequency shape=(630,) dtype=float64
+DATASET intervals/drifting_gratings_presentations/timeseries shape=(630,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/drifting_gratings_presentations/timeseries_index shape=(630,) dtype=int64
+DATASET intervals/drifting_gratings_presentations/units shape=(630,) dtype=object
+GROUP   intervals/flashes_presentations
+DATASET intervals/flashes_presentations/color shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/contrast shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/id shape=(150,) dtype=int64
+DATASET intervals/flashes_presentations/mask shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/opacity shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/orientation shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/phase shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/size shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/spatial_frequency shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/start_time shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/stimulus_block shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/stimulus_index shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/stimulus_name shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/stop_time shape=(150,) dtype=float64
+DATASET intervals/flashes_presentations/tags shape=(150,) dtype=object
+DATASET intervals/flashes_presentations/tags_index shape=(150,) dtype=int64
+DATASET intervals/flashes_presentations/timeseries shape=(150,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/flashes_presentations/timeseries_index shape=(150,) dtype=int64
+DATASET intervals/flashes_presentations/units shape=(150,) dtype=object
+GROUP   intervals/gabors_presentations
+DATASET intervals/gabors_presentations/color shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/contrast shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/id shape=(3645,) dtype=int64
+DATASET intervals/gabors_presentations/mask shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/opacity shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/orientation shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/phase shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/size shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/spatial_frequency shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/start_time shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/stimulus_block shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/stimulus_index shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/stimulus_name shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/stop_time shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/tags shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/tags_index shape=(3645,) dtype=int64
+DATASET intervals/gabors_presentations/temporal_frequency shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/timeseries shape=(3645,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/gabors_presentations/timeseries_index shape=(3645,) dtype=int64
+DATASET intervals/gabors_presentations/units shape=(3645,) dtype=object
+DATASET intervals/gabors_presentations/x_position shape=(3645,) dtype=float64
+DATASET intervals/gabors_presentations/y_position shape=(3645,) dtype=float64
+GROUP   intervals/invalid_times
+DATASET intervals/invalid_times/id shape=(1,) dtype=int64
+DATASET intervals/invalid_times/start_time shape=(1,) dtype=float64
+DATASET intervals/invalid_times/stop_time shape=(1,) dtype=float64
+DATASET intervals/invalid_times/tags shape=(3,) dtype=object
+DATASET intervals/invalid_times/tags_index shape=(1,) dtype=int64
+GROUP   intervals/natural_movie_one_presentations
+DATASET intervals/natural_movie_one_presentations/color shape=(18000,) dtype=object
+DATASET intervals/natural_movie_one_presentations/contrast shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/frame shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/id shape=(18000,) dtype=int64
+DATASET intervals/natural_movie_one_presentations/opacity shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/orientation shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/size shape=(18000,) dtype=object
+DATASET intervals/natural_movie_one_presentations/start_time shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/stimulus_block shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/stimulus_index shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/stimulus_name shape=(18000,) dtype=object
+DATASET intervals/natural_movie_one_presentations/stop_time shape=(18000,) dtype=float64
+DATASET intervals/natural_movie_one_presentations/tags shape=(18000,) dtype=object
+DATASET intervals/natural_movie_one_presentations/tags_index shape=(18000,) dtype=int64
+DATASET intervals/natural_movie_one_presentations/timeseries shape=(18000,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/natural_movie_one_presentations/timeseries_index shape=(18000,) dtype=int64
+DATASET intervals/natural_movie_one_presentations/units shape=(18000,) dtype=object
+GROUP   intervals/natural_movie_three_presentations
+DATASET intervals/natural_movie_three_presentations/color shape=(36000,) dtype=object
+DATASET intervals/natural_movie_three_presentations/contrast shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/frame shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/id shape=(36000,) dtype=int64
+DATASET intervals/natural_movie_three_presentations/opacity shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/orientation shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/size shape=(36000,) dtype=object
+DATASET intervals/natural_movie_three_presentations/start_time shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/stimulus_block shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/stimulus_index shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/stimulus_name shape=(36000,) dtype=object
+DATASET intervals/natural_movie_three_presentations/stop_time shape=(36000,) dtype=float64
+DATASET intervals/natural_movie_three_presentations/tags shape=(36000,) dtype=object
+DATASET intervals/natural_movie_three_presentations/tags_index shape=(36000,) dtype=int64
+DATASET intervals/natural_movie_three_presentations/timeseries shape=(36000,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/natural_movie_three_presentations/timeseries_index shape=(36000,) dtype=int64
+DATASET intervals/natural_movie_three_presentations/units shape=(36000,) dtype=object
+GROUP   intervals/natural_scenes_presentations
+DATASET intervals/natural_scenes_presentations/frame shape=(5950,) dtype=float64
+DATASET intervals/natural_scenes_presentations/id shape=(5950,) dtype=int64
+DATASET intervals/natural_scenes_presentations/start_time shape=(5950,) dtype=float64
+DATASET intervals/natural_scenes_presentations/stimulus_block shape=(5950,) dtype=float64
+DATASET intervals/natural_scenes_presentations/stimulus_index shape=(5950,) dtype=float64
+DATASET intervals/natural_scenes_presentations/stimulus_name shape=(5950,) dtype=object
+DATASET intervals/natural_scenes_presentations/stop_time shape=(5950,) dtype=float64
+DATASET intervals/natural_scenes_presentations/tags shape=(5950,) dtype=object
+DATASET intervals/natural_scenes_presentations/tags_index shape=(5950,) dtype=int64
+DATASET intervals/natural_scenes_presentations/timeseries shape=(5950,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/natural_scenes_presentations/timeseries_index shape=(5950,) dtype=int64
+GROUP   intervals/spontaneous_presentations
+DATASET intervals/spontaneous_presentations/id shape=(15,) dtype=int64
+DATASET intervals/spontaneous_presentations/start_time shape=(15,) dtype=float64
+DATASET intervals/spontaneous_presentations/stimulus_name shape=(15,) dtype=object
+DATASET intervals/spontaneous_presentations/stop_time shape=(15,) dtype=float64
+DATASET intervals/spontaneous_presentations/tags shape=(15,) dtype=object
+DATASET intervals/spontaneous_presentations/tags_index shape=(15,) dtype=int64
+DATASET intervals/spontaneous_presentations/timeseries shape=(15,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/spontaneous_presentations/timeseries_index shape=(15,) dtype=int64
+GROUP   intervals/static_gratings_presentations
+DATASET intervals/static_gratings_presentations/color shape=(6000,) dtype=object
+DATASET intervals/static_gratings_presentations/contrast shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/id shape=(6000,) dtype=int64
+DATASET intervals/static_gratings_presentations/mask shape=(6000,) dtype=object
+DATASET intervals/static_gratings_presentations/opacity shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/orientation shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/phase shape=(6000,) dtype=object
+DATASET intervals/static_gratings_presentations/size shape=(6000,) dtype=object
+DATASET intervals/static_gratings_presentations/spatial_frequency shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/start_time shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/stimulus_block shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/stimulus_index shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/stimulus_name shape=(6000,) dtype=object
+DATASET intervals/static_gratings_presentations/stop_time shape=(6000,) dtype=float64
+DATASET intervals/static_gratings_presentations/tags shape=(6000,) dtype=object
+DATASET intervals/static_gratings_presentations/tags_index shape=(6000,) dtype=int64
+DATASET intervals/static_gratings_presentations/timeseries shape=(6000,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET intervals/static_gratings_presentations/timeseries_index shape=(6000,) dtype=int64
+DATASET intervals/static_gratings_presentations/units shape=(6000,) dtype=object
+GROUP   processing
+GROUP   processing/eye_tracking
+GROUP   processing/eye_tracking/cr_ellipse_fits
+DATASET processing/eye_tracking/cr_ellipse_fits/center_x shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/cr_ellipse_fits/center_y shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/cr_ellipse_fits/height shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/cr_ellipse_fits/id shape=(297838,) dtype=int64
+DATASET processing/eye_tracking/cr_ellipse_fits/phi shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/cr_ellipse_fits/timestamps shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/cr_ellipse_fits/width shape=(297838,) dtype=float64
+GROUP   processing/eye_tracking/eye_ellipse_fits
+DATASET processing/eye_tracking/eye_ellipse_fits/center_x shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/eye_ellipse_fits/center_y shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/eye_ellipse_fits/height shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/eye_ellipse_fits/id shape=(297838,) dtype=int64
+DATASET processing/eye_tracking/eye_ellipse_fits/phi shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/eye_ellipse_fits/timestamps shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/eye_ellipse_fits/width shape=(297838,) dtype=float64
+GROUP   processing/eye_tracking/pupil_ellipse_fits
+DATASET processing/eye_tracking/pupil_ellipse_fits/center_x shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/pupil_ellipse_fits/center_y shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/pupil_ellipse_fits/height shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/pupil_ellipse_fits/id shape=(297838,) dtype=int64
+DATASET processing/eye_tracking/pupil_ellipse_fits/phi shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/pupil_ellipse_fits/timestamps shape=(297838,) dtype=float64
+DATASET processing/eye_tracking/pupil_ellipse_fits/width shape=(297838,) dtype=float64
+GROUP   processing/eye_tracking_rig_metadata
+GROUP   processing/eye_tracking_rig_metadata/eye_tracking_rig_metadata
+DATASET processing/eye_tracking_rig_metadata/eye_tracking_rig_metadata/camera_position shape=(3,) dtype=float64
+DATASET processing/eye_tracking_rig_metadata/eye_tracking_rig_metadata/camera_rotation shape=(3,) dtype=float64
+DATASET processing/eye_tracking_rig_metadata/eye_tracking_rig_metadata/led_position shape=(3,) dtype=float64
+DATASET processing/eye_tracking_rig_metadata/eye_tracking_rig_metadata/monitor_position shape=(3,) dtype=float64
+DATASET processing/eye_tracking_rig_metadata/eye_tracking_rig_metadata/monitor_rotation shape=(3,) dtype=float64
+GROUP   processing/filtered_gaze_mapping
+GROUP   processing/filtered_gaze_mapping/eye_area
+DATASET processing/filtered_gaze_mapping/eye_area/data shape=(297838,) dtype=float64
+DATASET processing/filtered_gaze_mapping/eye_area/timestamps shape=(297838,) dtype=float64
+GROUP   processing/filtered_gaze_mapping/pupil_area
+DATASET processing/filtered_gaze_mapping/pupil_area/data shape=(297838,) dtype=float64
+DATASET processing/filtered_gaze_mapping/pupil_area/timestamps shape=(297838,) dtype=float64
+GROUP   processing/filtered_gaze_mapping/screen_coordinates
+DATASET processing/filtered_gaze_mapping/screen_coordinates/data shape=(297838, 2) dtype=float64
+DATASET processing/filtered_gaze_mapping/screen_coordinates/timestamps shape=(297838,) dtype=float64
+GROUP   processing/filtered_gaze_mapping/screen_coordinates_spherical
+DATASET processing/filtered_gaze_mapping/screen_coordinates_spherical/data shape=(297838, 2) dtype=float64
+DATASET processing/filtered_gaze_mapping/screen_coordinates_spherical/timestamps shape=(297838,) dtype=float64
+GROUP   processing/optotagging
+GROUP   processing/optotagging/optogenetic_stimulation
+DATASET processing/optotagging/optogenetic_stimulation/condition shape=(180,) dtype=object
+DATASET processing/optotagging/optogenetic_stimulation/duration shape=(180,) dtype=float64
+DATASET processing/optotagging/optogenetic_stimulation/id shape=(180,) dtype=int64
+DATASET processing/optotagging/optogenetic_stimulation/level shape=(180,) dtype=float64
+DATASET processing/optotagging/optogenetic_stimulation/start_time shape=(180,) dtype=float64
+DATASET processing/optotagging/optogenetic_stimulation/stimulus_name shape=(180,) dtype=object
+DATASET processing/optotagging/optogenetic_stimulation/stop_time shape=(180,) dtype=float64
+DATASET processing/optotagging/optogenetic_stimulation/tags shape=(180,) dtype=object
+DATASET processing/optotagging/optogenetic_stimulation/tags_index shape=(180,) dtype=int64
+DATASET processing/optotagging/optogenetic_stimulation/timeseries shape=(180,) dtype=[('idx_start', '<i4'), ('count', '<i4'), ('timeseries', 'O')]
+DATASET processing/optotagging/optogenetic_stimulation/timeseries_index shape=(180,) dtype=int64
+GROUP   processing/optotagging/optotagging
+DATASET processing/optotagging/optotagging/data shape=(180,) dtype=float64
+DATASET processing/optotagging/optotagging/timestamps shape=(180,) dtype=float64
+GROUP   processing/raw_gaze_mapping
+GROUP   processing/raw_gaze_mapping/eye_area
+DATASET processing/raw_gaze_mapping/eye_area/data shape=(297838,) dtype=float64
+DATASET processing/raw_gaze_mapping/eye_area/timestamps shape=(297838,) dtype=float64
+GROUP   processing/raw_gaze_mapping/pupil_area
+DATASET processing/raw_gaze_mapping/pupil_area/data shape=(297838,) dtype=float64
+DATASET processing/raw_gaze_mapping/pupil_area/timestamps shape=(297838,) dtype=float64
+GROUP   processing/raw_gaze_mapping/screen_coordinates
+DATASET processing/raw_gaze_mapping/screen_coordinates/data shape=(297838, 2) dtype=float64
+DATASET processing/raw_gaze_mapping/screen_coordinates/timestamps shape=(297838,) dtype=float64
+GROUP   processing/raw_gaze_mapping/screen_coordinates_spherical
+DATASET processing/raw_gaze_mapping/screen_coordinates_spherical/data shape=(297838, 2) dtype=float64
+DATASET processing/raw_gaze_mapping/screen_coordinates_spherical/timestamps shape=(297838,) dtype=float64
+GROUP   processing/running
+GROUP   processing/running/running_speed
+DATASET processing/running/running_speed/data shape=(365388,) dtype=float64
+DATASET processing/running/running_speed/timestamps shape=(365388,) dtype=float64
+GROUP   processing/running/running_speed_end_times
+DATASET processing/running/running_speed_end_times/data shape=(365388,) dtype=float64
+DATASET processing/running/running_speed_end_times/timestamps shape=(365388,) dtype=float64
+GROUP   processing/running/running_wheel_rotation
+DATASET processing/running/running_wheel_rotation/data shape=(365388,) dtype=float32
+GROUP   processing/stimulus
+GROUP   processing/stimulus/timestamps
+DATASET processing/stimulus/timestamps/data shape=(70390,) dtype=float64
+DATASET processing/stimulus/timestamps/timestamps shape=(70390,) dtype=float64
+DATASET session_description shape=() dtype=object
+DATASET session_start_time shape=() dtype=object
+GROUP   specifications
+GROUP   specifications/core
+GROUP   specifications/core/2.2.2
+DATASET specifications/core/2.2.2/namespace shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.base shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.behavior shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.device shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.ecephys shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.epoch shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.file shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.icephys shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.image shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.misc shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.ogen shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.ophys shape=() dtype=object
+DATASET specifications/core/2.2.2/nwb.retinotopy shape=() dtype=object
+GROUP   specifications/hdmf-common
+GROUP   specifications/hdmf-common/1.1.3
+DATASET specifications/hdmf-common/1.1.3/namespace shape=() dtype=object
+DATASET specifications/hdmf-common/1.1.3/sparse shape=() dtype=object
+DATASET specifications/hdmf-common/1.1.3/table shape=() dtype=object
+GROUP   specifications/ndx-aibs-ecephys
+GROUP   specifications/ndx-aibs-ecephys/0.2.0
+DATASET specifications/ndx-aibs-ecephys/0.2.0/namespace shape=() dtype=object
+DATASET specifications/ndx-aibs-ecephys/0.2.0/ndx-aibs-ecephys.extension shape=() dtype=object
+GROUP   stimulus
+GROUP   stimulus/presentation
+GROUP   stimulus/templates
+DATASET timestamps_reference_time shape=() dtype=object
+GROUP   units
+DATASET units/PT_ratio shape=(2169,) dtype=float64
+DATASET units/amplitude shape=(2169,) dtype=float64
+DATASET units/amplitude_cutoff shape=(2169,) dtype=float64
+DATASET units/cluster_id shape=(2169,) dtype=int64
+DATASET units/cumulative_drift shape=(2169,) dtype=float64
+DATASET units/d_prime shape=(2169,) dtype=float64
+DATASET units/firing_rate shape=(2169,) dtype=float64
+DATASET units/id shape=(2169,) dtype=int64
+DATASET units/isi_violations shape=(2169,) dtype=float64
+DATASET units/isolation_distance shape=(2169,) dtype=float64
+DATASET units/l_ratio shape=(2169,) dtype=float64
+DATASET units/local_index shape=(2169,) dtype=int64
+DATASET units/max_drift shape=(2169,) dtype=float64
+DATASET units/nn_hit_rate shape=(2169,) dtype=float64
+DATASET units/nn_miss_rate shape=(2169,) dtype=float64
+DATASET units/peak_channel_id shape=(2169,) dtype=int64
+DATASET units/presence_ratio shape=(2169,) dtype=float64
+DATASET units/quality shape=(2169,) dtype=object
+DATASET units/recovery_slope shape=(2169,) dtype=float64
+DATASET units/repolarization_slope shape=(2169,) dtype=float64
+DATASET units/silhouette_score shape=(2169,) dtype=float64
+DATASET units/snr shape=(2169,) dtype=float64
+DATASET units/spike_amplitudes shape=(117559768,) dtype=float64
+DATASET units/spike_amplitudes_index shape=(2169,) dtype=int64
+DATASET units/spike_times shape=(117559768,) dtype=float64
+DATASET units/spike_times_index shape=(2169,) dtype=int64
+DATASET units/spread shape=(2169,) dtype=float64
+DATASET units/velocity_above shape=(2169,) dtype=float64
+DATASET units/velocity_below shape=(2169,) dtype=float64
+DATASET units/waveform_duration shape=(2169,) dtype=float64
+DATASET units/waveform_halfwidth shape=(2169,) dtype=float64
+DATASET units/waveform_mean shape=(832896, 82) dtype=float64
+DATASET units/waveform_mean_index shape=(2169,) dtype=int64
