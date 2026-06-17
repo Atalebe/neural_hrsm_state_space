@@ -1,0 +1,9 @@
+figure,description,source
+strict_v2_session_controlled_memory_overview.png,"Six-session overview of median controlled memory gain, annotated by fraction above shuffled controls and top target.",cross_session_spontaneous_session_summary.csv
+strict_v2_target_by_session_heatmap.png,Heatmap of controlled memory gain for each target across the six strict sessions.,cross_session_spontaneous_target_by_session.csv
+strict_v2_controlled_gain_distribution_by_target.png,Box/point distribution of controlled memory gains across session-region groups for each target.,cross_session_spontaneous_target_group_summary.csv
+strict_v2_raw_vs_orthogonal_axis_correlations.png,Side-by-side mean raw and residualized HRSM axis correlation matrices.,raw_axis_correlation_summary.csv; orthogonal_axis_correlation_summary.csv
+strict_v2_variance_residual_comparison.png,Comparison of raw controlled gain and variance/autocorrelation residual gain across targets.,variance_scaling_target_residual_summary.csv
+strict_v2_lag_ablation_curves.png,Lag-ablation curves showing controlled memory gain across lag windows for four targets.,lag_ablation_cross_session_target_summary.csv
+strict_v2_phi_memory_landscape_labeled.png,Combined Phi-vs-organizational-memory landscape with selected high-ripeness and low-memory labels.,spontaneous_neural_ripeness_index.csv
+strict_v2_region_hrsm_profiles.png,Median H/R/S/M profiles by region across strict sessions.,real_neural_hrsm_domain_summary.csv from strict session folders
