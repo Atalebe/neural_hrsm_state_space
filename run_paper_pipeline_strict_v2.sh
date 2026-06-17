@@ -40,16 +40,19 @@ python scripts/allen/21_hrsm_raw_axis_audit.py \
   --out-dir results/cross_session/allen_spontaneous_strict_v2 \
   --fig-dir results/figures/cross_session/allen_spontaneous_strict_v2
 
-echo "[5/7] Verify strict-v2 lag-ablation outputs"
+echo "[5/8] Verify strict-v2 lag-ablation outputs"
 test -s results/ablation/allen_spontaneous_strict_v2/lag_ablation_cross_session_target_summary.csv
 test -s results/ablation/allen_spontaneous_strict_v2/lag_ablation_flags.csv
 test -s results/figures/ablation/allen_spontaneous_strict_v2/lag_ablation_controlled_memory_curves.png
 
-echo "[6/7] Generate strict-v2 manuscript tables and source"
+echo "[6/8] Generate combined manuscript figures"
+python scripts/paper/03_make_strict_v2_combined_figures.py
+
+echo "[7/8] Generate strict-v2 manuscript tables and source"
 python scripts/paper/01_make_strict_v2_tables.py
 python scripts/paper/02_write_strict_v2_manuscript.py
 
-echo "[7/7] Compile strict-v2 manuscript"
+echo "[8/8] Compile strict-v2 manuscript"
 rm -f neural_hrsm_spontaneous_memory_strict_v2.aux \
       neural_hrsm_spontaneous_memory_strict_v2.bbl \
       neural_hrsm_spontaneous_memory_strict_v2.blg \
