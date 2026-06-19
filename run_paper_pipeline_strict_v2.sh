@@ -52,7 +52,7 @@ echo "[7/8] Generate strict-v2 manuscript tables and source"
 python scripts/paper/01_make_strict_v2_tables.py
 python scripts/paper/02_write_strict_v2_manuscript.py
 
-echo "[8/8] Compile strict-v2 manuscript"
+echo "[8/9] Compile strict-v2 manuscript"
 rm -f neural_hrsm_spontaneous_memory_strict_v2.aux \
       neural_hrsm_spontaneous_memory_strict_v2.bbl \
       neural_hrsm_spontaneous_memory_strict_v2.blg \
@@ -64,4 +64,8 @@ rm -f neural_hrsm_spontaneous_memory_strict_v2.aux \
 
 latexmk -pdf -interaction=nonstopmode -halt-on-error paper/neural_hrsm_spontaneous_memory_strict_v2.tex
 
+echo "[9/9] Build strict-v2 submission bundle"
+python scripts/paper/04_make_strict_v2_submission_bundle.py
+
 echo "[ok] built neural_hrsm_spontaneous_memory_strict_v2.pdf"
+echo "[ok] built submission_bundle/neural_hrsm_spontaneous_memory_strict_v2_submission_bundle.zip"
