@@ -1,0 +1,4 @@
+test,passed,detail
+top_two_after_ar_control_are_recruitment_and_entropy,False,"population_state_speed,population_mean_rate_hz"
+active_entropy_positive_in_all_sessions_after_ar_control,False,Uses session-blocked controlled delta over AR(p).
+hrsm_lags_add_over_target_ar,True,Median HRSM-lag delta over AR(p) = 0.00900643
